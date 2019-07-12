@@ -85,12 +85,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>最近在挖携程的SRC，因为看到携程的跨域都是基于CORS的，加上以前自己挖掘的jsonp相关的漏洞，所以在这里总结一下我的理解。</p>
-<h2 id="浏览器的”同源策略””"><a href="#浏览器的”同源策略””" class="headerlink" title="浏览器的”同源策略””"></a>浏览器的”同源策略””</h2><p>同源策略/SOP（Same origin policy）是一种约定，由Netscape公司1995年引入浏览器，<br>它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSFR等攻击。<br>所谓同源是指”协议+域名+端口”三者相同，即便两个不同的域名指向同一个ip地址，也非同源。</p>
+<h2 id="浏览器的”同源策略”"><a href="#浏览器的”同源策略”" class="headerlink" title="浏览器的”同源策略”"></a>浏览器的”同源策略”</h2><p>同源策略/SOP（Same origin policy）是一种约定，由Netscape公司1995年引入浏览器，<br>它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSFR等攻击。<br>所谓同源是指”协议+域名+端口”三者相同，即便两个不同的域名指向同一个ip地址，也非同源。</p>
 <h2 id="跨域是什么"><a href="#跨域是什么" class="headerlink" title="跨域是什么"></a>跨域是什么</h2><p>一个域下的文档或脚本试图去请求另一个域下的资源，常见的就是跨域去请求资源取得其数据内容。</p>
 <h2 id="不受到同源策略限制的标签"><a href="#不受到同源策略限制的标签" class="headerlink" title="不受到同源策略限制的标签"></a>不受到同源策略限制的标签</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;...&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;img src=&quot;...&quot;&gt;</span><br><span class="line">&lt;video src=&quot;...&quot;&gt;&lt;/video&gt;</span><br><span class="line">&lt;audio src=&quot;...&quot;&gt;&lt;/audio&gt;</span><br><span class="line">&lt;embed src=&quot;...&quot;&gt;</span><br><span class="line">&lt;frame src=&quot;...&quot;&gt;</span><br><span class="line">&lt;iframe src=&quot;...&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;...&quot;&gt;</span><br><span class="line">&lt;applet code=&quot;...&quot;&gt;&lt;/applet&gt;</span><br><span class="line">&lt;object data=&quot;...&quot; &gt;&lt;/object&gt;</span><br></pre></td></tr></table></figure>
 
-<p>##所遇到的浏览器的一些限制</p>
-<ol>
+<h2 id="所遇到的浏览器的一些限制"><a href="#所遇到的浏览器的一些限制" class="headerlink" title="所遇到的浏览器的一些限制"></a>所遇到的浏览器的一些限制</h2><ol>
 <li>通过script img等标签引入外部js进行XSS攻击时，外部资源必须跟当前站点所使用的协议一致（https就对应https，http就对应http）</li>
 <li>同源策略的限制</li>
 <li>浏览器的XSS Auditor</li>
