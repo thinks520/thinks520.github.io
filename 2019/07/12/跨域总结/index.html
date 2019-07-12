@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="thinks blog">
 <meta property="og:description" content="最近在挖携程的SRC，因为看到携程的跨域都是基于CORS的，加上以前自己挖掘的jsonp相关的漏洞，所以在这里总结一下我的理解。 浏览器的”同源策略”同源策略/SOP（Same origin policy）是一种约定，由Netscape公司1995年引入浏览器，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSFR等攻击。所谓同源是指”协议+域名+端口”三者相同，">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-12T09:08:19.700Z">
+<meta property="og:updated_time" content="2019-07-12T09:09:40.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域总结">
 <meta name="twitter:description" content="最近在挖携程的SRC，因为看到携程的跨域都是基于CORS的，加上以前自己挖掘的jsonp相关的漏洞，所以在这里总结一下我的理解。 浏览器的”同源策略”同源策略/SOP（Same origin policy）是一种约定，由Netscape公司1995年引入浏览器，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSFR等攻击。所谓同源是指”协议+域名+端口”三者相同，">
@@ -112,8 +112,7 @@
 <h3 id="浏览器对这两种请求的处理，是不一样的。"><a href="#浏览器对这两种请求的处理，是不一样的。" class="headerlink" title="浏览器对这两种请求的处理，是不一样的。"></a>浏览器对这两种请求的处理，是不一样的。</h3><p>简单请求时，浏览器会直接发送跨域请求，并在请求头中携带Origin 的header，表明这是一个跨域的请求。<br>服务器端接到请求后，会根据自己的跨域规则，通过Access-Control-Allow-Origin和Access-Control-Allow-Methods响应头，来返回验证结果。<br>如果验证成功，则会直接返回访问的资源内容。</p>
 <p>非简单请求时，浏览器并不会立即执行对应的请求代码，而是会先发送Preflighted requests（预先验证请求），<br>Preflighted requests是一个OPTION请求，用于询问要被跨域访问的服务器，<br>是否允许当前域名下的页面发送跨域的请求。OPTIONS请求头部中会包含以下头部：<br>Origin、Access-Control-Request-Method、Access-Control-Request-Headers。<br>服务器收到OPTIONS请求后，设置Access-Control-Allow-Origin、Access-Control-Allow-Method、Access-Control-Allow-Headers头部与浏览器沟通来判断是否允许这个请求。<br>如果Preflighted requests验证通过，浏览器才会发送真正的跨域请求。</p>
 <h3 id="CORS与JSONP的使用目的相同，但是比JSONP更强大。"><a href="#CORS与JSONP的使用目的相同，但是比JSONP更强大。" class="headerlink" title="CORS与JSONP的使用目的相同，但是比JSONP更强大。"></a>CORS与JSONP的使用目的相同，但是比JSONP更强大。</h3><p>JSONP只支持GET请求，CORS支持所有类型的HTTP请求。<br>JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。</p>
-<p>##同源策略下的限制</p>
-<h3 id="CSRF-（CSRF只需要发送请求，而不在乎返回数据）"><a href="#CSRF-（CSRF只需要发送请求，而不在乎返回数据）" class="headerlink" title="CSRF （CSRF只需要发送请求，而不在乎返回数据）"></a>CSRF （CSRF只需要发送请求，而不在乎返回数据）</h3><ol>
+<h2 id="同源策略下的限制"><a href="#同源策略下的限制" class="headerlink" title="同源策略下的限制"></a>同源策略下的限制</h2><h3 id="CSRF-（CSRF只需要发送请求，而不在乎返回数据）"><a href="#CSRF-（CSRF只需要发送请求，而不在乎返回数据）" class="headerlink" title="CSRF （CSRF只需要发送请求，而不在乎返回数据）"></a>CSRF （CSRF只需要发送请求，而不在乎返回数据）</h3><ol>
 <li>GET型CSRF   可以</li>
 <li>一般POST型CSRF  可以</li>
 <li>简单的CORS请求（我理解应该是包括了上面的GET型和一般POST型）  可以<br> （不需要option请求，浏览器直接会发送请求）</li>
