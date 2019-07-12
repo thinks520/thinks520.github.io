@@ -116,7 +116,7 @@
 <p>##CSRF （CSRF只需要发送请求，而不在乎返回数据）<br>GET型CSRF  可以<br>一般POST型CSRF 可以<br>简单的CORS请求（我理解应该是包括了上面的GET型和一般POST型）  可以（不需要option请求，浏览器直接会发送请求）<br>复杂的CORS请求（例如json型POST请求）  不可以（由于复杂CORS，需要先进行option请求，验证通过后才会进行由浏览器进行数据请求，同源策略限制ajax不能读取返回内容，验证也就不会成功）</p>
 <p>##跨域获取数据<br>GET请求数据获取  不可以 （同源限制ajax不能读取返回内容，jsonp是利用script标签）<br>POST请求数据获取  不可以 （同源限制ajax不能读取返回内容制）</p>
 <p>##利用XSS<br>绕过同源策略限制：复杂的CORS请求  可以（XSS可以使得当前的origin是同源）<br>绕过CSRF的referer</p>
-<p>##浏览器的xss audit<br>浏览器的xss audit 是通过检测url和返回内容是否都有危险内容才拦截的，<br>例如访问<a href="http://www.baidu.com/" target="_blank" rel="noopener">http://www.baidu.com/</a><script>alert(1);</script>，这样因为返回内容没有危险，所以不会拦截，<br>同理，有些反射型XSS 的参数经过几次请求，才最终进入页面执行成功，这样也是不会拦截的（某些时候这样的反射型xss真的很好用）</p>
+<p>##浏览器的xss audit<br>浏览器的xss audit 是通过检测url和返回内容是否都有危险内容才拦截的，<br>例如访问<a href="http://www.baidu.com/#script#alert(1);#script#，这样因为返回内容没有危险，所以不会拦截，" target="_blank" rel="noopener">http://www.baidu.com/#script#alert(1);#script#，这样因为返回内容没有危险，所以不会拦截，</a><br>同理，有些反射型XSS 的参数经过几次请求，才最终进入页面执行成功，这样也是不会拦截的（某些时候这样的反射型xss真的很好用）</p>
 
       
     </div>
