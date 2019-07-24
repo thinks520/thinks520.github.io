@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>github信息泄露监控 | thinks blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="开源项目比较好的有三个：https://github.com/FeeiCN/gsil.githttps://github.com/0xbug/Hawkeyehttps://github.com/MiSecurity/x-patrol">
+<meta name="keywords" content="安全建设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="github信息泄露监控">
+<meta property="og:url" content="http://yoursite.com/2019/07/24/github信息泄露监控/index.html">
+<meta property="og:site_name" content="thinks blog">
+<meta property="og:description" content="开源项目比较好的有三个：https://github.com/FeeiCN/gsil.githttps://github.com/0xbug/Hawkeyehttps://github.com/MiSecurity/x-patrol">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-24T06:14:54.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="github信息泄露监控">
+<meta name="twitter:description" content="开源项目比较好的有三个：https://github.com/FeeiCN/gsil.githttps://github.com/0xbug/Hawkeyehttps://github.com/MiSecurity/x-patrol">
+  
+    <link rel="alternate" href="/atom.xml" title="thinks blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">thinks blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-github信息泄露监控" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/24/github信息泄露监控/" class="article-date">
+  <time datetime="2019-07-24T06:05:51.000Z" itemprop="datePublished">2019-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      github信息泄露监控
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>开源项目比较好的有三个：<br><a href="https://github.com/FeeiCN/gsil.git" target="_blank" rel="noopener">https://github.com/FeeiCN/gsil.git</a><br><a href="https://github.com/0xbug/Hawkeye" target="_blank" rel="noopener">https://github.com/0xbug/Hawkeye</a><br><a href="https://github.com/MiSecurity/x-patrol" target="_blank" rel="noopener">https://github.com/MiSecurity/x-patrol</a></p>
+<a id="more"></a>
+<p>其实都是原理大体上都是根据关键字作为特征搜索 ， 可以根据自己企业的特征进行配置</p>
+<h2 id="收集特征"><a href="#收集特征" class="headerlink" title="收集特征"></a>收集特征</h2><p>那如何找到我们的特征呢，GitHub作为一个开源代码托管平台，代码首当其中，但也会有人将GitHub仅当做版本控制系统来管理自己的文档、资料。这类资料都有一个共同特征，里面包含企业的专属特征：代码中接口的调用包含内部API地址、代码头部包含企业的Copyright信息、代码包名包含企业的主域名等。</p>
+<h3 id="常见几类特征"><a href="#常见几类特征" class="headerlink" title="常见几类特征"></a>常见几类特征</h3><p>内部域名，内网接口使用的域名、测试域名等，比如mogujie.org<br>外部域名，对外使用的域名，可以选一些风险较高的，比如mail.mogujie.com<br>代码版权，代码头部注释中的版权声明，比如Copyright 2018 Meili-Inc. All Rights Reserved<br>主机域名，服务器HOST域名，比如goods.db.mogujie.host<br>代码包名，Java代码包名，比如com.mogujie.goods<br>如何找到其它企业内部特征？<br>可以从域名特征入手，最简单的通过一些特定关键词:<br>corp<br>dev<br>inc<br>pre<br>test<br>copyright<br>搜索GitHub代码，根据代码人工确认是否是误报。找到某个确定是该企业的工程后，分析改工程其它类型的特征即可，对于下属企业可以通过域名注册人反查并循环前面的逻辑。 比如要找蘑菇街的内部特征，可以通过在GitHub中搜索mogujie dev即可找到属于蘑菇街的工程，继而我们再从这类工程中找到真正的内部域名和其它类型特征。</p>
+<p>实践例子</p>
+<p>声明：通过本篇内容任何人都可以轻易找到任何公司的内部特征，例子只为提升理解，若觉得侵权请联系我删除。 仅列取部分典型厂商的典型内部特征作为讲解。</p>
+<p>百度（BAIDU.COM）：公网域名和内网域名混用<br>yx01.baidu.com<br>vm.baidu.com<br>epc.baidu.com<br>iwm.name<br>xdb.all.serv</p>
+<p>阿里巴巴（ALIBABA.COM）：INC和.NET是最喜欢用作内网域名<br>alibaba-inc.com<br>aliyun-inc.com<br>alibaba-inc.vipserver<br>alibaba.net<br>alipay.net<br>fliggy.net<br>taobao.net</p>
+<p>腾讯(TENCENT.COM)：用了一个不是自己的域名<br>tapd.oa.com<br>proxy.tencent.com<br>proxy.oa.com<br>npm.oa.com<br>tencentdb.com<br>tencent.com</p>
+<p>京东（JD.COM）：特征独一无二，比较准<br>jd.local</p>
+<p>360（360.CN）：特征独一无二，比较准<br>qihoo.net</p>
+<p>Bilibili（BILIBILI.COM）：CO域名和COM域名在搜索分词容易出问题，需要注意<br>bilibili.co</p>
+<p>饿了么(ELE.ME)：特征独一无二，比较准<br>elenet.me</p>
+<p>陌陌（IMMOMO.COM）：特征独一无二，比较准<br>wemomo.com</p>
+<p>搜狐（sohu.com）：喜欢INC<br>sohu-inc.com<br>sohuno.com<br>cyou-inc.com</p>
+<p>途牛（TUNIU.COM）：喜欢ORG<br>tuniu.org<br>tuniu-cie.org<br>tunie-sit.org</p>
+<p>去哪儿（QUNAR.COM）：和百度类似，但用二级域来区分，比百度清楚<br>dev.qunar.com<br>package.qunar.com<br>test.qunar.com<br>beta.qunar.com<br>local.qunar.com<br>corp.qunar.com</p>
+<p>携程（CTRIP.COM）：：特征独一无二，比较准<br>ctripqa.com<br>ctripcorp.com</p>
+<p>爱奇艺（IQIYI.COM）：爱奇艺是区分的最好的，数据库、应用间调用、人访问的都区分开了<br>qiyi.domain<br>qiyi.virtual<br>qiyi.db</p>
+<p>了解搜索特性有利于特征收集<br>像其它搜索引擎一样，GitHub搜索会对内容进行分词，所以搜索的时候应该以单词为单位，如果有词组可以拆开用空格拼接起来搜索。<br>如果遇到一些比较容易出现误报的词，可以使用双引号括起来就行强制搜索，比如”mi.com”。<br>特殊字符不会被索引到。<br>使用时间倒序的方式，先处理最近上传的。</p>
+<p>参考 <a href="https://feei.cn/gsil" target="_blank" rel="noopener">https://feei.cn/gsil</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/24/github信息泄露监控/" data-id="cjygusogs000b8ok57h257apb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全建设/">安全建设</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/24/蜜罐/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">蜜罐</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/web安全/">web安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全建设/">安全建设</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全开发/">安全开发</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/web安全/" style="font-size: 20px;">web安全</a> <a href="/tags/安全建设/" style="font-size: 20px;">安全建设</a> <a href="/tags/安全开发/" style="font-size: 10px;">安全开发</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/24/github信息泄露监控/">github信息泄露监控</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/蜜罐/">蜜罐</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/SSRF-TIPS/">SSRF TIPS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/跨域总结/">跨域总结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/python-并发/">python 并发</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 thinks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
