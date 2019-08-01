@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="thinks blog">
 <meta property="og:description" content="对DDOS的总结，以及应急处理。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-01T03:31:54.927Z">
+<meta property="og:updated_time" content="2019-08-01T11:29:47.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDOS攻击学习笔记">
 <meta name="twitter:description" content="对DDOS的总结，以及应急处理。">
@@ -153,7 +153,15 @@
 <p>对于URL反射攻击，在攻击过程中找出反射源，在本地防御设备进行高级配置</p>
 <p>各种DoS效果漏洞利用：监控入侵检测或防御设备的告警信息、做好系统漏洞修复</p>
 <p>对于此类攻击，其实严格意义来说并不能算DDoS攻击，只能算是能达到DoS效果的攻击，仅做补充场景</p>
-<p>参考<br><a href="https://security.tencent.com/index.php/blog/msg/71" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/71</a><br><a href="http://blog.nsfocus.net/ddos-attack-emergency-system/" target="_blank" rel="noopener">http://blog.nsfocus.net/ddos-attack-emergency-system/</a><br><a href="https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html" target="_blank" rel="noopener">https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html</a><br><a href="https://security.tencent.com/index.php/blog/msg/128" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/128</a></p>
+<h2 id="企业应急操作流程"><a href="#企业应急操作流程" class="headerlink" title="企业应急操作流程"></a>企业应急操作流程</h2><p>前期准备： 推动业务申请高防VIP</p>
+<ol>
+<li>业务流量突增报警</li>
+<li>先判断是IDC还是CDN机房 ，排查定位到被攻击IP，判断确认是否为攻击</li>
+<li>登录服务器抓包，确认攻击并确定攻击类型，通知业务切高防VIP，针对攻击类型配置高防策略、转发规则</li>
+<li>将源IP或VIP黑洞，无权限可联系运营商</li>
+<li>观察一周，确定无攻击后切回来</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.nsfocus.net/ddos-attack-emergency-system/" target="_blank" rel="noopener">http://blog.nsfocus.net/ddos-attack-emergency-system/</a><br><a href="https://www.cnblogs.com/qcloud1001/p/9039227.html" target="_blank" rel="noopener">https://www.cnblogs.com/qcloud1001/p/9039227.html</a>  基于TCP反射DDoS攻击分析<br><a href="https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html" target="_blank" rel="noopener">https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html</a>  #反射型 DDoS攻击<br><a href="https://security.tencent.com/index.php/blog/msg/128" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/128</a> # 腾讯企业ddos方案<br><a href="http://www.cnhongke.org/article/43129" target="_blank" rel="noopener">http://www.cnhongke.org/article/43129</a>  DDOS 攻击测试工具 </p>
 
       
     </div>
