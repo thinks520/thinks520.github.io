@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="thinks blog">
 <meta property="og:description" content="对DDOS的总结，以及应急处理。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-01T03:27:02.993Z">
+<meta property="og:updated_time" content="2019-08-01T03:31:54.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDOS攻击学习笔记">
 <meta name="twitter:description" content="对DDOS的总结，以及应急处理。">
@@ -123,6 +123,36 @@
 <td align="left">入侵检测防御设备可能出现告警，DDoS攻击检测设备告警不明显</td>
 </tr>
 </tbody></table>
+<h2 id="摸清楚环境与资源-为DDoS应急预案提供支撑"><a href="#摸清楚环境与资源-为DDoS应急预案提供支撑" class="headerlink" title="摸清楚环境与资源 为DDoS应急预案提供支撑"></a>摸清楚环境与资源 为DDoS应急预案提供支撑</h2><p>所在的网络环境中，有多少条互联网出口？每一条带宽多少？</p>
+<p>每一条互联网出口的运营商是否支持DDoS攻击清洗，我们是否购买，或可以紧急试用？当发生DDoS攻击需要启用运营商清洗时，应急流程是否确定？</p>
+<p>每一条互联网出口的运营商是否支持紧急带宽扩容，我们是否购买，或可以紧急试用？当发生攻击需要启用运营商紧急带宽扩容时，应急流程是否确定？</p>
+<p>每一条互联网出口的线路，是否都具备本地DDoS攻击清洗能力？</p>
+<p>本地抗DDoS攻击设备服务商，是否提供了DDoS攻击的应急预案？</p>
+<p>所有需要我们防御的业务，是否都在抗DDoS设备的监控范围内？</p>
+<p>出现DDoS攻击的时候，所有需要自动清洗的业务，是否可以自动牵引并清洗？</p>
+<p>是否有内部针对DDoS攻击应急的指导流程？</p>
+<p>当发生DDoS攻击的时候如何第一时间感知？</p>
+<h2 id="安保应急中的DDoS攻击应急预案"><a href="#安保应急中的DDoS攻击应急预案" class="headerlink" title="安保应急中的DDoS攻击应急预案"></a>安保应急中的DDoS攻击应急预案</h2><p>根据以上信息，接下来就可以对号入座的针对每一个梳理出来的攻击场景部署防御手段了</p>
+<p>流量型（直接）—流量未超过链路带宽—本地清洗</p>
+<p>流量型（直接）—流量超过链路带宽—通知运营商清洗&#124;&#124;临时扩容&#124;&#124;云清洗—本地清洗</p>
+<p>针对SYN、ACK、UDP、ICMP等类型的flood攻击：</p>
+<p>一般情况下：本地清洗设备的防御算法都可以轻松应对。比如说首包丢弃、IP溯源等。</p>
+<p>特殊情况下：可以再次基础上增加一些限速，至少就可以保证在遭受攻击的时候保持业务基本的可用性。</p>
+<p>如果通过排查发现发生攻击源IP具有地域特征，可以根据地域进行限制（大量来自国外的攻击尤其适用）。</p>
+<p>流量型（反射）—流量未超过链路带宽—本地清洗</p>
+<p>流量型（反射）—流量超过链路带宽—通知运营商清洗&#124;&#124;临时扩容&#124;&#124;云清洗—本地清洗</p>
+<p>针对NTP、DNS、SSDP等类型的反射攻击：</p>
+<p>一般情况下：本地清洗设备的防御算法都可以有效的进行缓解。比如说对UDP碎片包的丢弃，以及限速等。</p>
+<p>特殊情况下：由于反射攻击的特征大多呈现为固定源端口+固定目的IP地址的流量占了整个链路带宽的90%+</p>
+<p>我们可以针对这些特征配置更加彻底的丢弃规则</p>
+<p>CC—本地清洗—本地清洗效果不佳后—-云清洗</p>
+<p>针对CC攻击，如果清洗效果非常不明显，情况又很紧急的情况下可以采用临时使用静态页面替换。</p>
+<p>HTTP慢速—本地清洗—本地清洗效果不佳后—云清洗</p>
+<p>对于HTTP body慢速攻击，在攻击过程中分析出攻击工具的特征后，针对特征在本地防御设备进行配置。</p>
+<p>URL（反射）—本地清洗+云清洗</p>
+<p>对于URL反射攻击，在攻击过程中找出反射源，在本地防御设备进行高级配置</p>
+<p>各种DoS效果漏洞利用：监控入侵检测或防御设备的告警信息、做好系统漏洞修复</p>
+<p>对于此类攻击，其实严格意义来说并不能算DDoS攻击，只能算是能达到DoS效果的攻击，仅做补充场景</p>
 <p>参考<br><a href="https://security.tencent.com/index.php/blog/msg/71" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/71</a><br><a href="http://blog.nsfocus.net/ddos-attack-emergency-system/" target="_blank" rel="noopener">http://blog.nsfocus.net/ddos-attack-emergency-system/</a><br><a href="https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html" target="_blank" rel="noopener">https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html</a><br><a href="https://security.tencent.com/index.php/blog/msg/128" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/128</a></p>
 
       
