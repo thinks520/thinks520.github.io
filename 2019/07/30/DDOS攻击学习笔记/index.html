@@ -5,20 +5,20 @@
   
 
   
-  <title>企业资产监控 | thinks blog</title>
+  <title>DDOS攻击学习笔记 | thinks blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="监控企业外部域名、端口">
+  <meta name="description" content="DDOS 攻击场景   DDoS攻击场景 现象    流量型（直接） SYN\ACK\ICMP\UDP\Connection FLOOD等DDoS告警   流量型（反射） NTP\DNS\SSDP\ICMP FLOOD等DDoS告警   CC 流量变化可能不明显，业务访问缓慢，超时严重，大量访问请求指向同一个或少数几个页面   HTTP慢速 流量变化可能不明显，业务访问缓慢，超时严重，大量不完整">
 <meta name="keywords" content="安全建设">
 <meta property="og:type" content="article">
-<meta property="og:title" content="企业资产监控">
-<meta property="og:url" content="http://yoursite.com/2019/07/24/企业资产监控/index.html">
+<meta property="og:title" content="DDOS攻击学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/07/30/DDOS攻击学习笔记/index.html">
 <meta property="og:site_name" content="thinks blog">
-<meta property="og:description" content="监控企业外部域名、端口">
+<meta property="og:description" content="DDOS 攻击场景   DDoS攻击场景 现象    流量型（直接） SYN\ACK\ICMP\UDP\Connection FLOOD等DDoS告警   流量型（反射） NTP\DNS\SSDP\ICMP FLOOD等DDoS告警   CC 流量变化可能不明显，业务访问缓慢，超时严重，大量访问请求指向同一个或少数几个页面   HTTP慢速 流量变化可能不明显，业务访问缓慢，超时严重，大量不完整">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-24T08:21:57.320Z">
+<meta property="og:updated_time" content="2019-08-01T03:09:10.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="企业资产监控">
-<meta name="twitter:description" content="监控企业外部域名、端口">
+<meta name="twitter:title" content="DDOS攻击学习笔记">
+<meta name="twitter:description" content="DDOS 攻击场景   DDoS攻击场景 现象    流量型（直接） SYN\ACK\ICMP\UDP\Connection FLOOD等DDoS告警   流量型（反射） NTP\DNS\SSDP\ICMP FLOOD等DDoS告警   CC 流量变化可能不明显，业务访问缓慢，超时严重，大量访问请求指向同一个或少数几个页面   HTTP慢速 流量变化可能不明显，业务访问缓慢，超时严重，大量不完整">
   
     <link rel="alternate" href="/atom.xml" title="thinks blog" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-企业资产监控" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-DDOS攻击学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/24/企业资产监控/" class="article-date">
-  <time datetime="2019-07-24T08:06:26.000Z" itemprop="datePublished">2019-07-24</time>
+    <a href="/2019/07/30/DDOS攻击学习笔记/" class="article-date">
+  <time datetime="2019-07-30T09:42:10.000Z" itemprop="datePublished">2019-07-30</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      企业资产监控
+      DDOS攻击学习笔记
     </h1>
   
 
@@ -87,14 +87,45 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>监控企业外部域名、端口</p>
-<a id="more"></a>
+        <a id="more"></a>
+<h2 id="DDOS-攻击场景"><a href="#DDOS-攻击场景" class="headerlink" title="DDOS 攻击场景"></a>DDOS 攻击场景</h2><table>
+<thead>
+<tr>
+<th>DDoS攻击场景</th>
+<th align="left">现象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>流量型（直接）</td>
+<td align="left">SYN\ACK\ICMP\UDP\Connection FLOOD等DDoS告警</td>
+</tr>
+<tr>
+<td>流量型（反射）</td>
+<td align="left">NTP\DNS\SSDP\ICMP FLOOD等DDoS告警</td>
+</tr>
+<tr>
+<td>CC</td>
+<td align="left">流量变化可能不明显，业务访问缓慢，超时严重，大量访问请求指向同一个或少数几个页面</td>
+</tr>
+<tr>
+<td>HTTP慢速</td>
+<td align="left">流量变化可能不明显，业务访问缓慢，超时严重，大量不完整的HTTP GET请求，出现有规律大小（通常很小）的HTTP POST请求的报文</td>
+</tr>
+<tr>
+<td>URL反射</td>
+<td align="left">流量变化明显，业务访问缓慢，超时严重，大量请求的Referer字段相同，表明均来自同一跳转页面</td>
+</tr>
+<tr>
+<td>各种DoS效果漏洞利用</td>
+<td align="left">入侵检测防御设备可能出现告警，DDoS攻击检测设备告警不明显</td>
+</tr>
+</tbody></table>
+<p>参考<br><a href="https://security.tencent.com/index.php/blog/msg/71" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/71</a><br><a href="http://blog.nsfocus.net/ddos-attack-emergency-system/" target="_blank" rel="noopener">http://blog.nsfocus.net/ddos-attack-emergency-system/</a><br><a href="https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html" target="_blank" rel="noopener">https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html</a><br><a href="https://security.tencent.com/index.php/blog/msg/128" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/128</a></p>
 
-<h2 id="sublert"><a href="#sublert" class="headerlink" title="sublert"></a>sublert</h2><h2 id="teemo-subDomainsBrute"><a href="#teemo-subDomainsBrute" class="headerlink" title="teemo + subDomainsBrute"></a>teemo + subDomainsBrute</h2><h2 id="esd"><a href="#esd" class="headerlink" title="esd"></a>esd</h2><h2 id="masscan"><a href="#masscan" class="headerlink" title="masscan"></a>masscan</h2><h2 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h2><h2 id="kunpeng"><a href="#kunpeng" class="headerlink" title="kunpeng"></a>kunpeng</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/24/企业资产监控/" data-id="cjys3p3zv00093sk5rt35caje" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/30/DDOS攻击学习笔记/" data-id="cjys3p3zo00043sk5v1dqkplw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全建设/">安全建设</a></li></ul>
@@ -105,19 +136,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/30/DDOS攻击学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/07/30/域渗透笔记/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          DDOS攻击学习笔记
+          域渗透笔记
         
       </div>
     </a>
   
   
-    <a href="/2019/07/24/内网渗透笔记/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/24/企业资产监控/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">内网渗透笔记</div>
+      <div class="article-nav-title">企业资产监控</div>
     </a>
   
 </nav>
