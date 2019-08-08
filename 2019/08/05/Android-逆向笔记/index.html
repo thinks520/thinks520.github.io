@@ -82,7 +82,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#反编译工具"><span class="toc-text">反编译工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDA动态调试"><span class="toc-text">IDA动态调试</span></a></li></ol>
 </div>
     
 </div>
@@ -134,7 +134,33 @@
         <p>简单的crackme笔记总计<br><a href="https://juejin.im/post/5ce52ed951882532df70ab58#heading-7" target="_blank" rel="noopener">https://juejin.im/post/5ce52ed951882532df70ab58#heading-7</a></p>
 <p>大佬的超全的笔记<br><a href="https://lichao890427.github.io/wiki/android%20reverse%20engineering/" target="_blank" rel="noopener">https://lichao890427.github.io/wiki/android%20reverse%20engineering/</a></p>
 <p>看雪的逆向资料<br><a href="https://www.kanxue.com/chm.htm" target="_blank" rel="noopener">https://www.kanxue.com/chm.htm</a></p>
+<p>逆向资源练习<br><a href="https://blog.csdn.net/qq_36869808/article/details/79290420" target="_blank" rel="noopener">https://blog.csdn.net/qq_36869808/article/details/79290420</a></p>
 <p>陌陌apk的逆向<br><a href="https://blog.csdn.net/weixin_43832522/article/details/85085524" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43832522/article/details/85085524</a></p>
+<p>反调试：<br><a href="https://bbs.pediy.com/thread-223324.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-223324.htm</a></p>
+<p>AliCrackme_2.apk<br><a href="https://blog.csdn.net/QQ1084283172/article/details/46872937" target="_blank" rel="noopener">https://blog.csdn.net/QQ1084283172/article/details/46872937</a></p>
+<h3 id="反编译工具"><a href="#反编译工具" class="headerlink" title="反编译工具"></a>反编译工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Android Studio   开发和调试smali代码</span><br><span class="line">IDA pro 7.0          分析elf文件</span><br><span class="line">jeb                  Apk反编译集成工具(代码质量高)</span><br><span class="line">jadx‐gui             dex直接转换成java代码(代码质量高)   https://github.com/skylot/jadx</span><br><span class="line">ApkTools             集成了baksmali和smali</span><br><span class="line">ApkDB                将smali代码反编译成dex文件，并重新签名APK(自己编写)</span><br><span class="line">APK改之理</span><br></pre></td></tr></table></figure>
+
+<h3 id="IDA动态调试"><a href="#IDA动态调试" class="headerlink" title="IDA动态调试"></a>IDA动态调试</h3><p>大佬总结了 <a href="http://www.tasfa.cn/index.php/2016/06/03/android-ida-so-2/" target="_blank" rel="noopener">http://www.tasfa.cn/index.php/2016/06/03/android-ida-so-2/</a></p>
+<p>tips</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">adb install -r AliCrackme_2.apk  # 安装apk</span><br><span class="line"></span><br><span class="line">adb push android_server /system/bin</span><br><span class="line"></span><br><span class="line">adb shell chmod 755 /system/bin/android_server</span><br><span class="line"></span><br><span class="line">adb shell su</span><br><span class="line">android_server  #android_server要以root权限运行，才能获取所有的进程</span><br><span class="line"></span><br><span class="line">adb forward tcp:23946 tcp:23946</span><br></pre></td></tr></table></figure>
+
+<p>调试步骤小结</p>
+<p>（1）调试步骤：</p>
+<ol>
+<li>adb shell am start -D -n {pkgname}/{Activity}</li>
+<li>ida android_server放到手机，以root身份运行，PC端idapro远程连接、 attach、下断点</li>
+<li>adb forward tcp:8700 jdwp:{pid}</li>
+<li>jdb -connect “com.sun.jdi.SocketAttach:hostname=127.0.0.1,port=8700”</li>
+</ol>
+<p>（2）调试步骤：</p>
+<ol>
+<li>adb shell am start -D -n {pkgname}/{Activity}</li>
+<li>adb forward tcp:23946 tcp:23946</li>
+<li>ida android_server放到手机，以root身份运行，PC端idapro远程连接、 attach、下断点</li>
+<li>打开DDMS,查看端口</li>
+<li>jdb -connect “com.sun.jdi.SocketAttach:hostname=127.0.0.1,port=8700”</li>
+</ol>
+<p>adb shell am start -D -n com.yaotong.crackme/com.yaotong.crackme.MainActivity</p>
 
         
         <br />
