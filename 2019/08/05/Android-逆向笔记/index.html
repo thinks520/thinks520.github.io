@@ -56,25 +56,25 @@
             <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
-                    <span>HOME</span>
+                    <span>主页</span>
                 </a>
             </li>
             <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
-                    <span>TAGS</span>
+                    <span>标签</span>
                 </a>
             </li>
             <li >
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
-                    <span>ARCHIVES</span>
+                    <span>存档</span>
                 </a>
             </li>
             <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
-                    <span>ABOUT</span>
+                    <span>关于</span>
                 </a>
             </li>
             
@@ -93,7 +93,7 @@
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
             <input id="search-input"/>
-            <span id="begin-search">search</span>
+            <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
 
@@ -117,16 +117,16 @@
     </div>
 
     <div class="post-meta">
-        <span class="attr">Post：<span>2019-08-05 18:37:11</span></span>
+        <span class="attr">发布于：<span>2019-08-05 18:37:11</span></span>
         
-        <span class="attr">Tags：/
+        <span class="attr">标签：/
         
         <a class="tag" href="/tags/#安卓逆向" title="安卓逆向">安卓逆向</a>
         <span>/</span>
         
         
         </span>
-        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
 </span>
     </div>
@@ -135,13 +135,13 @@
 <p>大佬的超全的笔记<br><a href="https://lichao890427.github.io/wiki/android%20reverse%20engineering/" target="_blank" rel="noopener">https://lichao890427.github.io/wiki/android%20reverse%20engineering/</a></p>
 <p>看雪的逆向资料<br><a href="https://www.kanxue.com/chm.htm" target="_blank" rel="noopener">https://www.kanxue.com/chm.htm</a></p>
 <p>逆向资源练习<br><a href="https://blog.csdn.net/qq_36869808/article/details/79290420" target="_blank" rel="noopener">https://blog.csdn.net/qq_36869808/article/details/79290420</a></p>
-<p>陌陌apk的逆向<br><a href="https://blog.csdn.net/weixin_43832522/article/details/85085524" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43832522/article/details/85085524</a></p>
+<p>某陌apk的逆向<br><a href="https://blog.csdn.net/weixin_43832522/article/details/85085524" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43832522/article/details/85085524</a><br><a href="https://bbs.pediy.com/thread-251689.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-251689.htm</a></p>
 <p>反调试：<br><a href="https://bbs.pediy.com/thread-223324.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-223324.htm</a></p>
 <p>AliCrackme_2.apk<br><a href="https://www.bodkin.ren/index.php/archives/643/" target="_blank" rel="noopener">https://www.bodkin.ren/index.php/archives/643/</a></p>
-<p>使用IDA动态调试android so文件时的几个坑<br><a href="https://blog.csdn.net/three_feng/article/details/49404121" target="_blank" rel="noopener">https://blog.csdn.net/three_feng/article/details/49404121</a></p>
+<p>Android应用完整性保护总结<br><a href="https://bbs.pediy.com/thread-250990.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-250990.htm</a></p>
 <h3 id="反编译工具"><a href="#反编译工具" class="headerlink" title="反编译工具"></a>反编译工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Android Studio   开发和调试smali代码</span><br><span class="line">IDA pro 7.0          分析elf文件</span><br><span class="line">jeb                  Apk反编译集成工具(代码质量高)</span><br><span class="line">jadx‐gui             dex直接转换成java代码(代码质量高)   https://github.com/skylot/jadx</span><br><span class="line">ApkTools             集成了baksmali和smali</span><br><span class="line">ApkDB                将smali代码反编译成dex文件，并重新签名APK(自己编写)</span><br><span class="line">APK改之理             集成工具，效果挺好的</span><br></pre></td></tr></table></figure>
 
-<h3 id="IDA动态调试so"><a href="#IDA动态调试so" class="headerlink" title="IDA动态调试so"></a>IDA动态调试so</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1、安装apk并打开，手机开启IDA调试服务：【adb shell】【su】【./data/local/tmp/android_server】</span><br><span class="line"></span><br><span class="line">2、PC端进行端口转发：【adb forward tcp:23946 tcp:23946】</span><br><span class="line"></span><br><span class="line">3、打开DDMS，以调试方式来启动应用</span><br><span class="line">【adb shell am start -D -n com.yaotong.crackme/com.yaotong.crackme.MainActivity】</span><br><span class="line"></span><br><span class="line">4、IDA进行attach附加，附加完成后设置debugger options，</span><br><span class="line">勾上&quot;process entry point&quot;,&quot;thread start/exit&quot;,&quot;library load/unload&quot;三个选项</span><br><span class="line"></span><br><span class="line">5、使用jdb恢复进程运行，【jdb -connect com.sun.jdi.SocketAttach:hostname=127.0.0.1,port=8700】，终端出现停顿</span><br><span class="line"></span><br><span class="line">6、点击绿色三角【F9】执行程序，弹窗选否，开始调试，因为设置了&quot;library load/unload&quot;选项会在类加载时停住，</span><br><span class="line">所以一路点击运行，直到看到加载的so文件被加载进来，就可以在modules列表找到函数进行断点。</span><br><span class="line"></span><br><span class="line">7、【F7】单步步入，【F8】单步步过</span><br></pre></td></tr></table></figure>
+<h3 id="IDA动态调试so"><a href="#IDA动态调试so" class="headerlink" title="IDA动态调试so"></a>IDA动态调试so</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1、保证apk开启debug，在application标签属性添加 android:debuggable=&quot;true&quot; ，回编译apk文件,</span><br><span class="line">  使用adb install -r crackme.apk 安装apk。</span><br><span class="line"></span><br><span class="line">2、手机开启IDA调试服务：【adb shell】【su】【./data/local/tmp/android_server】</span><br><span class="line">  PC端进行端口转发：【adb forward tcp:23946 tcp:23946】</span><br><span class="line"></span><br><span class="line">3、打开DDMS，以调试方式来启动应用</span><br><span class="line">【adb shell am start -D -n com.yaotong.crackme/com.yaotong.crackme.MainActivity】</span><br><span class="line"></span><br><span class="line">4、IDA进行attach附加，附加完成后设置debugger options，</span><br><span class="line">勾上&quot;process entry point&quot;,&quot;thread start/exit&quot;,&quot;library load/unload&quot;三个选项</span><br><span class="line"></span><br><span class="line">5、使用jdb恢复进程运行，【jdb -connect com.sun.jdi.SocketAttach:hostname=127.0.0.1,port=8700】，终端出现停顿</span><br><span class="line"></span><br><span class="line">6、点击绿色三角【F9】执行程序，弹窗选否，开始调试，因为设置了&quot;library load/unload&quot;选项会在类加载时停住，</span><br><span class="line">所以一路点击运行，直到看到加载的so文件被加载进来，就可以在modules列表找到函数进行断点。</span><br><span class="line"></span><br><span class="line">7、【F7】单步步入，【F8】单步步过</span><br></pre></td></tr></table></figure>
 
 <p>IDA动态调试so详情看这里：<a href="https://www.cnblogs.com/aademeng/articles/6883928.html" target="_blank" rel="noopener">https://www.cnblogs.com/aademeng/articles/6883928.html</a></p>
 
