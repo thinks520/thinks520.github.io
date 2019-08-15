@@ -136,10 +136,10 @@
 <p>例子</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a onclick=&quot;window.open(&apos;value1&apos;)&quot; href=&quot;javascript:window.open(&apos;value2&apos;)&quot;&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
 
-<p>浏览器解码顺序：</p>
-<pre><code>Value1：HTML解码àJavaScript解码àURL解码
+<p>// 有href属性会先url解码<br>浏览器解码顺序：</p>
+<pre><code>Value1：HTML解码 -&gt; JavaScript解码 -&gt; URL解码
 
-Value2：HTML解码àURL解码àJavaScript解码àURL解码</code></pre>
+Value2：HTML解码 -&gt; URL解码 -&gt; JavaScript解码 -&gt; URL解码</code></pre>
         
         <br />
         <div id="comment-container">
