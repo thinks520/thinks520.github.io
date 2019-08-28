@@ -201,8 +201,8 @@
 <ol>
 <li>业务流量突增报警</li>
 <li>先判断是IDC还是CDN机房 ，排查定位到被攻击IP，判断确认是否为攻击</li>
-<li>登录服务器抓包，确认攻击并确定攻击类型，通知业务切高防VIP，针对攻击类型配置高防策略、转发规则</li>
-<li>将源IP或VIP黑洞，无权限可联系运营商</li>
+<li>登录服务器抓包，确认攻击并确定攻击类型，通知业务申请某机房VIP，配置转发高防ip回源到VIP，<br>针对攻击类型配置高防策略、转发规则，</li>
+<li>业务切DNS到高防IP，将源IP或VIP黑洞，无权限可联系运营商</li>
 <li>观察一周，确定无攻击后切回来</li>
 </ol>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.nsfocus.net/ddos-attack-emergency-system/" target="_blank" rel="noopener">http://blog.nsfocus.net/ddos-attack-emergency-system/</a><br><a href="https://www.cnblogs.com/qcloud1001/p/9039227.html" target="_blank" rel="noopener">https://www.cnblogs.com/qcloud1001/p/9039227.html</a>  基于TCP反射DDoS攻击分析<br><a href="https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html" target="_blank" rel="noopener">https://www.cnblogs.com/163yun/archive/2018/04/20/8889489.html</a>  #反射型 DDoS攻击<br><a href="https://security.tencent.com/index.php/blog/msg/128" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/128</a> # 腾讯企业ddos方案<br><a href="http://www.cnhongke.org/article/43129" target="_blank" rel="noopener">http://www.cnhongke.org/article/43129</a>  DDOS 攻击测试工具 </p>
