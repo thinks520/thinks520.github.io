@@ -1,813 +1,277 @@
+
+
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  <title>Android 逆向笔记 | thinks blog</title>
-  <meta name="keywords" content=" 安卓逆向 ">
-  <meta name="description" content="Android 逆向笔记 | thinks blog">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="简单总结下常见组件未授权访问漏洞利用方式">
-<meta name="keywords" content="web安全">
+<html lang>
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.9.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content>
+    <title>Android 逆向笔记 | thinks blog</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="安卓逆向中的学习笔记">
+<meta name="keywords" content="安卓逆向">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常见组件未授权访问漏洞利用">
-<meta property="og:url" content="http://yoursite.com/2019/08/28/常见组件未授权访问漏洞利用/index.html">
+<meta property="og:title" content="Android 逆向笔记">
+<meta property="og:url" content="http://yoursite.com/2019/08/05/Android-逆向笔记/index.html">
 <meta property="og:site_name" content="thinks blog">
-<meta property="og:description" content="简单总结下常见组件未授权访问漏洞利用方式">
+<meta property="og:description" content="安卓逆向中的学习笔记">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-29T03:01:11.673Z">
+<meta property="og:updated_time" content="2019-08-29T02:56:23.833Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="常见组件未授权访问漏洞利用">
-<meta name="twitter:description" content="简单总结下常见组件未授权访问漏洞利用方式">
+<meta name="twitter:title" content="Android 逆向笔记">
+<meta name="twitter:description" content="安卓逆向中的学习笔记">
 
-
-<link rel="icon" href="/img/avatar.jpg">
-
-<link href="/css/style.css?v=1.0.1" rel="stylesheet">
-
-<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
-
-<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
-<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
-
-<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "thinks",
+  "url": "http://yoursite.com"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
 </script>
 
-<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+    
 
-
-
-<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-
-<script src="/js/iconfont.js?v=1.0.1"></script>
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
 
 </head>
-<div style="display: none">
-  <input class="theme_disqus_on" value="false">
-  <input class="theme_preload_comment" value="false">
-  <input class="theme_blog_path" value>
-</div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-<body>
-<aside class="nav">
-    <div class="nav-left">
-        <a href="/" class="avatar_target">
-    <img class="avatar" src="/img/avatar.jpg" />
-</a>
-<div class="author">
-    <span>thinks</span>
-</div>
-
-<div class="icon">
-    
-        
-        <a title="rss" href="/atom.xml" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-rss"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="github" href="https://github.com/yelog" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-github"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="facebook" href="https://www.facebook.com/faker.tops" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-facebook"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-    
-        
-    
-        
-        <a title="instagram" href="https://www.facebook.com/faker.tops" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-instagram"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-reddit"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="weibo" href="http://weibo.com/u/2307534817" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-weibo"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="jianshu" href="https://www.jianshu.com/u/ff56736de7cf" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-jianshu"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="zhihu" href="https://www.zhihu.com/people/jaytp/activities" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-zhihu"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-    
-        
-        <a title="oschina" href="https://my.oschina.net/yelog" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-oschina"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-    
-        
-        <a title="email" href="mailto:jaytp@qq.com" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-email"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-qq"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="kugou" href="https://www.kugou.com/" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-kugou"></use>
-                </svg>
-            
-        </a>
-        
-    
-        
-        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=88151013" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-neteasemusic"></use>
-                </svg>
-            
-        </a>
-        
-    
-</div>
-
-
-
-
-<ul>
-    <li><div class="all active">全部文章<small>(18)</small></div></li>
-    
-</ul>
-<div class="left-bottom">
-    <div class="menus">
-    
-    
-    
-    
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
     </div>
-    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
-</div>
-<input type="hidden" id="yelog_site_posts_number" value="18">
 
-<div style="display: none">
-    <span id="busuanzi_value_site_uv"></span>
-    <span id="busuanzi_value_site_pv"></span>
-</div>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
 
-    </div>
-    <div class="nav-right">
-        <div class="friends-area">
-    <div class="friends-title">
-        友情链接
-        <i class="back-title-list"></i>
-    </div>
-    <div class="friends-content">
-        <ul>
-            
-            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
-            
-        </ul>
-    </div>
-</div>
-        <div class="title-list">
-    <form onkeydown="if(event.keyCode==13){return false;}">
-        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
-        <i class="cross"></i>
-        <span>
-            <label for="tagswitch">Tags:</label>
-            <input id="tagswitch" type="checkbox" style="display: none" />
-            <i id="tagsWitchIcon"></i>
-        </span>
-    </form>
-    <div class="tags-list">
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">安卓逆向</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color1">web安全</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">安全建设</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">安全开发</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">代码审计</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">内网渗透</a>
-    </li>
-    
-    <div class="clearfix"></div>
-</div>
-
-    
-    <nav id="title-list-nav">
-        
-        <a  class=""
-           href="/2019/08/05/Android-逆向笔记/"
-           data-tag="安卓逆向"
-           data-author="" >
-            <span class="post-title" title="Android 逆向笔记">Android 逆向笔记</span>
-            <span class="post-date" title="2019-08-05 18:37:11">2019/08/05</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/22/SSRF-TIPS/"
-           data-tag="web安全"
-           data-author="" >
-            <span class="post-title" title="SSRF TIPS">SSRF TIPS</span>
-            <span class="post-date" title="2019-07-22 14:35:33">2019/07/22</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/14/XSS的高级攻击用法/"
-           data-tag="web安全"
-           data-author="" >
-            <span class="post-title" title="XSS的高级攻击用法">XSS的高级攻击用法</span>
-            <span class="post-date" title="2019-08-14 16:34:16">2019/08/14</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/24/github信息泄露监控/"
-           data-tag="安全建设"
-           data-author="" >
-            <span class="post-title" title="github信息泄露监控">github信息泄露监控</span>
-            <span class="post-date" title="2019-07-24 14:05:51">2019/07/24</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/02/pyppeteer使用/"
-           data-tag="安全开发"
-           data-author="" >
-            <span class="post-title" title="pyppeteer使用">pyppeteer使用</span>
-            <span class="post-date" title="2019-08-02 17:57:30">2019/08/02</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/09/hexo-usage/"
-           data-tag="安全开发"
-           data-author="" >
-            <span class="post-title" title="hexo usage">hexo usage</span>
-            <span class="post-date" title="2019-07-09 16:44:30">2019/07/09</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/10/python并发并行/"
-           data-tag="安全开发"
-           data-author="" >
-            <span class="post-title" title="python并发并行">python并发并行</span>
-            <span class="post-date" title="2019-07-10 15:56:22">2019/07/10</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/30/DDOS攻击学习笔记/"
-           data-tag="安全建设"
-           data-author="" >
-            <span class="post-title" title="DDOS攻击学习笔记">DDOS攻击学习笔记</span>
-            <span class="post-date" title="2019-07-30 17:42:10">2019/07/30</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/22/业务安全学习/"
-           data-tag="web安全"
-           data-author="" >
-            <span class="post-title" title="业务安全学习">业务安全学习</span>
-            <span class="post-date" title="2019-08-22 15:43:30">2019/08/22</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/26/代码审计tips/"
-           data-tag="代码审计"
-           data-author="" >
-            <span class="post-title" title="代码审计tips">代码审计tips</span>
-            <span class="post-date" title="2019-08-26 09:24:56">2019/08/26</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/24/内网渗透笔记/"
-           data-tag="内网渗透"
-           data-author="" >
-            <span class="post-title" title="内网渗透笔记">内网渗透笔记</span>
-            <span class="post-date" title="2019-07-24 15:30:32">2019/07/24</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/24/企业资产监控/"
-           data-tag="安全建设"
-           data-author="" >
-            <span class="post-title" title="企业资产监控">企业资产监控</span>
-            <span class="post-date" title="2019-07-24 16:06:26">2019/07/24</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/02/域渗透笔记/"
-           data-tag="内网渗透"
-           data-author="" >
-            <span class="post-title" title="域渗透笔记">域渗透笔记</span>
-            <span class="post-date" title="2019-08-02 18:00:54">2019/08/02</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/02/应急响应/"
-           data-tag="安全建设"
-           data-author="" >
-            <span class="post-title" title="应急响应">应急响应</span>
-            <span class="post-date" title="2019-08-02 17:56:34">2019/08/02</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/14/理解浏览器解析机制和XSS向量编码/"
-           data-tag="web安全"
-           data-author="" >
-            <span class="post-title" title="理解浏览器解析机制和XSS向量编码">理解浏览器解析机制和XSS向量编码</span>
-            <span class="post-date" title="2019-08-14 16:32:49">2019/08/14</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/24/蜜罐/"
-           data-tag="安全建设"
-           data-author="" >
-            <span class="post-title" title="蜜罐">蜜罐</span>
-            <span class="post-date" title="2019-07-24 10:12:42">2019/07/24</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/12/跨域总结/"
-           data-tag="web安全"
-           data-author="" >
-            <span class="post-title" title="跨域总结">跨域总结</span>
-            <span class="post-date" title="2019-07-12 13:57:23">2019/07/12</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/28/常见组件未授权访问漏洞利用/"
-           data-tag="web安全"
-           data-author="" >
-            <span class="post-title" title="常见组件未授权访问漏洞利用">常见组件未授权访问漏洞利用</span>
-            <span class="post-date" title="2019-08-28 10:33:17">2019/08/28</span>
-        </a>
-        
-    </nav>
-</div>
-    </div>
-    <div class="hide-list">
-        <div class="semicircle">
-            <div class="brackets first"><</div>
-            <div class="brackets">&gt;</div>
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>thinks blog</h3>
         </div>
     </div>
-</aside>
-<div class="post">
-    <div class="pjax">
-        <article id="post-Android-逆向笔记" class="article article-type-post" itemscope itemprop="blogPost">
-    
-        <h1 class="article-title">Android 逆向笔记</h1>
-    
-    <div class="article-meta">
-        
-        
-        
-        
-        <span class="tag">
-            
-            <a href="javascript:" class="color5">安卓逆向</a>
-            
-        </span>
-        
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">thinks</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="article-meta">
-        
-        创建时间:<time class="date" title='更新时间: 2019-08-29 10:56:23'>2019-08-05 18:37</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        
-        <span id="busuanzi_container_page_pv">
-            阅读:<span id="busuanzi_value_page_pv">
-                <span class="count-comment">
-                    <span class="spinner">
-                      <div class="cube1"></div>
-                      <div class="cube2"></div>
-                    </span>
-                </span>
-            </span>
-        </span>
-        
-        
-    </div>
-    
-    <div class="toc-ref">
-    
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#反编译工具"><span class="toc-text">反编译工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDA动态调试so"><span class="toc-text">IDA动态调试so</span></a></li></ol>
-    
-<style>
-    .left-col .switch-btn,
-    .left-col .switch-area {
-        display: none;
-    }
-    .toc-level-3 i,
-    .toc-level-3 ol {
-        display: none !important;
-    }
-</style>
+
+
 </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安卓逆向中的学习笔记</p>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-Android-逆向笔记" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    Android 逆向笔记
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <p>&#x5B89;&#x5353;&#x9006;&#x5411;&#x4E2D;&#x7684;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;</p>
 <a id="more"></a>
-<p>简单的crackme笔记总计<br><a href="https://juejin.im/post/5ce52ed951882532df70ab58#heading-7" target="_blank" rel="noopener">https://juejin.im/post/5ce52ed951882532df70ab58#heading-7</a></p>
-<p>大佬的超全的笔记<br><a href="https://lichao890427.github.io/wiki/android%20reverse%20engineering/" target="_blank" rel="noopener">https://lichao890427.github.io/wiki/android%20reverse%20engineering/</a></p>
-<p>看雪的逆向资料<br><a href="https://www.kanxue.com/chm.htm" target="_blank" rel="noopener">https://www.kanxue.com/chm.htm</a></p>
-<p>逆向资源练习<br><a href="https://blog.csdn.net/qq_36869808/article/details/79290420" target="_blank" rel="noopener">https://blog.csdn.net/qq_36869808/article/details/79290420</a></p>
-<p>某陌apk的逆向<br><a href="https://blog.csdn.net/weixin_43832522/article/details/85085524" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43832522/article/details/85085524</a><br><a href="https://bbs.pediy.com/thread-251689.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-251689.htm</a></p>
-<p>反调试：<br><a href="https://bbs.pediy.com/thread-223324.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-223324.htm</a></p>
+<p>&#x7B80;&#x5355;&#x7684;crackme&#x7B14;&#x8BB0;&#x603B;&#x8BA1;<br><a href="https://juejin.im/post/5ce52ed951882532df70ab58#heading-7" target="_blank" rel="noopener">https://juejin.im/post/5ce52ed951882532df70ab58#heading-7</a></p>
+<p>&#x5927;&#x4F6C;&#x7684;&#x8D85;&#x5168;&#x7684;&#x7B14;&#x8BB0;<br><a href="https://lichao890427.github.io/wiki/android%20reverse%20engineering/" target="_blank" rel="noopener">https://lichao890427.github.io/wiki/android%20reverse%20engineering/</a></p>
+<p>&#x770B;&#x96EA;&#x7684;&#x9006;&#x5411;&#x8D44;&#x6599;<br><a href="https://www.kanxue.com/chm.htm" target="_blank" rel="noopener">https://www.kanxue.com/chm.htm</a></p>
+<p>&#x9006;&#x5411;&#x8D44;&#x6E90;&#x7EC3;&#x4E60;<br><a href="https://blog.csdn.net/qq_36869808/article/details/79290420" target="_blank" rel="noopener">https://blog.csdn.net/qq_36869808/article/details/79290420</a></p>
+<p>&#x67D0;&#x964C;apk&#x7684;&#x9006;&#x5411;<br><a href="https://blog.csdn.net/weixin_43832522/article/details/85085524" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43832522/article/details/85085524</a><br><a href="https://bbs.pediy.com/thread-251689.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-251689.htm</a></p>
+<p>&#x53CD;&#x8C03;&#x8BD5;&#xFF1A;<br><a href="https://bbs.pediy.com/thread-223324.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-223324.htm</a></p>
 <p>AliCrackme_2.apk<br><a href="https://www.bodkin.ren/index.php/archives/643/" target="_blank" rel="noopener">https://www.bodkin.ren/index.php/archives/643/</a></p>
-<p>Android应用完整性保护总结<br><a href="https://bbs.pediy.com/thread-250990.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-250990.htm</a></p>
-<h3 id="反编译工具"><a href="#反编译工具" class="headerlink" title="反编译工具"></a>反编译工具</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Android Studio   开发和调试smali代码</span><br><span class="line">IDA pro 7.0          分析elf文件</span><br><span class="line">jeb                  Apk反编译集成工具(代码质量高)</span><br><span class="line">jadx‐gui             dex直接转换成java代码(代码质量高)   https://github.com/skylot/jadx</span><br><span class="line">ApkTools             集成了baksmali和smali</span><br><span class="line">ApkDB                将smali代码反编译成dex文件，并重新签名APK(自己编写)</span><br><span class="line">APK改之理             集成工具，效果挺好的</span><br></pre></td></tr></table></figure>
+<p>Android&#x5E94;&#x7528;&#x5B8C;&#x6574;&#x6027;&#x4FDD;&#x62A4;&#x603B;&#x7ED3;<br><a href="https://bbs.pediy.com/thread-250990.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-250990.htm</a></p>
+<h3 id="&#x53CD;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;"><a href="#&#x53CD;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;" class="headerlink" title="&#x53CD;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;"></a>&#x53CD;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Android Studio   &#x5F00;&#x53D1;&#x548C;&#x8C03;&#x8BD5;smali&#x4EE3;&#x7801;</span><br><span class="line">IDA pro 7.0          &#x5206;&#x6790;elf&#x6587;&#x4EF6;</span><br><span class="line">jeb                  Apk&#x53CD;&#x7F16;&#x8BD1;&#x96C6;&#x6210;&#x5DE5;&#x5177;(&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x9AD8;)</span><br><span class="line">jadx&#x2010;gui             dex&#x76F4;&#x63A5;&#x8F6C;&#x6362;&#x6210;java&#x4EE3;&#x7801;(&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x9AD8;)   https://github.com/skylot/jadx</span><br><span class="line">ApkTools             &#x96C6;&#x6210;&#x4E86;baksmali&#x548C;smali</span><br><span class="line">ApkDB                &#x5C06;smali&#x4EE3;&#x7801;&#x53CD;&#x7F16;&#x8BD1;&#x6210;dex&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x91CD;&#x65B0;&#x7B7E;&#x540D;APK(&#x81EA;&#x5DF1;&#x7F16;&#x5199;)</span><br><span class="line">APK&#x6539;&#x4E4B;&#x7406;             &#x96C6;&#x6210;&#x5DE5;&#x5177;&#xFF0C;&#x6548;&#x679C;&#x633A;&#x597D;&#x7684;</span><br></pre></td></tr></table></figure>
 
-<h3 id="IDA动态调试so"><a href="#IDA动态调试so" class="headerlink" title="IDA动态调试so"></a>IDA动态调试so</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1、保证apk开启debug，在application标签属性添加 android:debuggable=&quot;true&quot; ，回编译apk文件,</span><br><span class="line">  使用adb install -r crackme.apk 安装apk。</span><br><span class="line"></span><br><span class="line">2、手机开启IDA调试服务：【adb shell】【su】【./data/local/tmp/android_server】</span><br><span class="line">  PC端进行端口转发：【adb forward tcp:23946 tcp:23946】</span><br><span class="line"></span><br><span class="line">3、打开DDMS，以调试方式来启动应用</span><br><span class="line">【adb shell am start -D -n com.yaotong.crackme/com.yaotong.crackme.MainActivity】</span><br><span class="line"></span><br><span class="line">4、IDA进行attach附加，附加完成后设置debugger options，</span><br><span class="line">勾上&quot;process entry point&quot;,&quot;thread start/exit&quot;,&quot;library load/unload&quot;三个选项</span><br><span class="line"></span><br><span class="line">5、使用jdb恢复进程运行，【jdb -connect com.sun.jdi.SocketAttach:hostname=127.0.0.1,port=8700】，终端出现停顿</span><br><span class="line"></span><br><span class="line">6、点击绿色三角【F9】执行程序，弹窗选否，开始调试，因为设置了&quot;library load/unload&quot;选项会在类加载时停住，</span><br><span class="line">所以一路点击运行，直到看到加载的so文件被加载进来，就可以在modules列表找到函数进行断点。</span><br><span class="line"></span><br><span class="line">7、【F7】单步步入，【F8】单步步过</span><br></pre></td></tr></table></figure>
+<h3 id="IDA&#x52A8;&#x6001;&#x8C03;&#x8BD5;so"><a href="#IDA&#x52A8;&#x6001;&#x8C03;&#x8BD5;so" class="headerlink" title="IDA&#x52A8;&#x6001;&#x8C03;&#x8BD5;so"></a>IDA&#x52A8;&#x6001;&#x8C03;&#x8BD5;so</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1&#x3001;&#x4FDD;&#x8BC1;apk&#x5F00;&#x542F;debug&#xFF0C;&#x5728;application&#x6807;&#x7B7E;&#x5C5E;&#x6027;&#x6DFB;&#x52A0; android:debuggable=&quot;true&quot; &#xFF0C;&#x56DE;&#x7F16;&#x8BD1;apk&#x6587;&#x4EF6;,</span><br><span class="line">  &#x4F7F;&#x7528;adb install -r crackme.apk &#x5B89;&#x88C5;apk&#x3002;</span><br><span class="line"></span><br><span class="line">2&#x3001;&#x624B;&#x673A;&#x5F00;&#x542F;IDA&#x8C03;&#x8BD5;&#x670D;&#x52A1;&#xFF1A;&#x3010;adb shell&#x3011;&#x3010;su&#x3011;&#x3010;./data/local/tmp/android_server&#x3011;</span><br><span class="line">  PC&#x7AEF;&#x8FDB;&#x884C;&#x7AEF;&#x53E3;&#x8F6C;&#x53D1;&#xFF1A;&#x3010;adb forward tcp:23946 tcp:23946&#x3011;</span><br><span class="line"></span><br><span class="line">3&#x3001;&#x6253;&#x5F00;DDMS&#xFF0C;&#x4EE5;&#x8C03;&#x8BD5;&#x65B9;&#x5F0F;&#x6765;&#x542F;&#x52A8;&#x5E94;&#x7528;</span><br><span class="line">&#x3010;adb shell am start -D -n com.yaotong.crackme/com.yaotong.crackme.MainActivity&#x3011;</span><br><span class="line"></span><br><span class="line">4&#x3001;IDA&#x8FDB;&#x884C;attach&#x9644;&#x52A0;&#xFF0C;&#x9644;&#x52A0;&#x5B8C;&#x6210;&#x540E;&#x8BBE;&#x7F6E;debugger options&#xFF0C;</span><br><span class="line">&#x52FE;&#x4E0A;&quot;process entry point&quot;,&quot;thread start/exit&quot;,&quot;library load/unload&quot;&#x4E09;&#x4E2A;&#x9009;&#x9879;</span><br><span class="line"></span><br><span class="line">5&#x3001;&#x4F7F;&#x7528;jdb&#x6062;&#x590D;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#xFF0C;&#x3010;jdb -connect com.sun.jdi.SocketAttach:hostname=127.0.0.1,port=8700&#x3011;&#xFF0C;&#x7EC8;&#x7AEF;&#x51FA;&#x73B0;&#x505C;&#x987F;</span><br><span class="line"></span><br><span class="line">6&#x3001;&#x70B9;&#x51FB;&#x7EFF;&#x8272;&#x4E09;&#x89D2;&#x3010;F9&#x3011;&#x6267;&#x884C;&#x7A0B;&#x5E8F;&#xFF0C;&#x5F39;&#x7A97;&#x9009;&#x5426;&#xFF0C;&#x5F00;&#x59CB;&#x8C03;&#x8BD5;&#xFF0C;&#x56E0;&#x4E3A;&#x8BBE;&#x7F6E;&#x4E86;&quot;library load/unload&quot;&#x9009;&#x9879;&#x4F1A;&#x5728;&#x7C7B;&#x52A0;&#x8F7D;&#x65F6;&#x505C;&#x4F4F;&#xFF0C;</span><br><span class="line">&#x6240;&#x4EE5;&#x4E00;&#x8DEF;&#x70B9;&#x51FB;&#x8FD0;&#x884C;&#xFF0C;&#x76F4;&#x5230;&#x770B;&#x5230;&#x52A0;&#x8F7D;&#x7684;so&#x6587;&#x4EF6;&#x88AB;&#x52A0;&#x8F7D;&#x8FDB;&#x6765;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5728;modules&#x5217;&#x8868;&#x627E;&#x5230;&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x65AD;&#x70B9;&#x3002;</span><br><span class="line"></span><br><span class="line">7&#x3001;&#x3010;F7&#x3011;&#x5355;&#x6B65;&#x6B65;&#x5165;&#xFF0C;&#x3010;F8&#x3011;&#x5355;&#x6B65;&#x6B65;&#x8FC7;</span><br></pre></td></tr></table></figure>
 
-<p>IDA动态调试so详情看这里：<a href="https://www.cnblogs.com/aademeng/articles/6883928.html" target="_blank" rel="noopener">https://www.cnblogs.com/aademeng/articles/6883928.html</a></p>
+<p>IDA&#x52A8;&#x6001;&#x8C03;&#x8BD5;so&#x8BE6;&#x60C5;&#x770B;&#x8FD9;&#x91CC;&#xFF1A;<a href="https://www.cnblogs.com/aademeng/articles/6883928.html" target="_blank" rel="noopener">https://www.cnblogs.com/aademeng/articles/6883928.html</a></p>
 
-      
-       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
-    </div>
-</article>
+                        
+                    </div>
 
+                    
+                    
+                    
 
-<p>
-    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
-</p>
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2019-08-05T10:37:11.000Z" itemprop="datePublished">2019-08-05</time>
 
+    </span>
+    <span class="post-description-item">
+        
 
-<div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Android 逆向笔记</p>
+    <span>
+        <i class="tags icon"></i>
+    </span>
+
     
-    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="thinks">thinks</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-05, 18:37:11</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-29, 10:56:23</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/05/Android-逆向笔记/" title="Android 逆向笔记">http://yoursite.com/2019/08/05/Android-逆向笔记/</a>
-    <p>
-        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
-    </p>
-</div>
-
-
-
-
+    <span class="ui tiny label">
+        <a href="/tags/安卓逆向/">安卓逆向</a>
+    </span>
 
     
 
-
-
-
-    </div>
-    <div class="copyright">
-        <p class="footer-entry">©2016-2019 Yelog</p>
-<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
-
-    </div>
-    <div class="full-toc">
-        <button class="full"><span class="min "></span></button>
-<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
-<div class="post-toc"><span class="post-toc-title">目录</span>
-    <div class="post-toc-content">
-
-    </div>
+    </span>
 </div>
-<a class="" id="rocket" href="javascript:void(0)"></a>
-    </div>
-</div>
-<div class="acParent"></div>
 
-<div class="hide_box" onclick="dashangToggle()"></div>
-<div class="shang_box">
-    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
-    <div class="shang_tit">
-        <p>喜欢就点赞,疼爱就打赏</p>
-    </div>
-    <div class="shang_payimg">
-        <div class="pay_img">
-            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
-            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2019/08/14/理解浏览器解析机制和XSS向量编码/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    理解浏览器解析机制和XSS向量编码
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2019/08/02/域渗透笔记/" class="ui tiny button">
+                    
+                    域渗透笔记
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
         </div>
     </div>
-    <div class="shang_payselect">
-        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#反编译工具"><span>反编译工具</span></a></li><li><a href="#IDA动态调试so"><span>IDA动态调试so</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
 </div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">thinks</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
 
 
 </body>
-<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
-
-<script src="/js/script.js?v=1.0.1" ></script>
-<script>
-    var img_resize = 'default';
-    /*作者、标签的自动补全*/
-    $(function () {
-        $('.search').AutoComplete({
-            'data': ['#安卓逆向','#web安全','#安全建设','#安全开发','#代码审计','#内网渗透',],
-            'itemHeight': 20,
-            'width': 418
-        }).AutoComplete('show');
-    })
-    function initArticle() {
-        /*渲染对应的表格样式*/
-        
-            $(".post .pjax table").addClass("green_title");
-        
-
-        /*渲染打赏样式*/
-        
-        $("input[name=pay]").on("click", function () {
-            if($("input[name=pay]:checked").val()=="weixin"){
-                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
-            } else {
-                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
-            }
-        })
-        
-
-        /*高亮代码块行号*/
-        
-        $('pre code').each(function(){
-            var lines = $(this).text().split('\n').length - 1, widther='';
-            if (lines>99) {
-                widther = 'widther'
-            }
-            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
-            $(this).addClass('has-numbering ' + widther)
-                    .parent()
-                    .append($numbering);
-            for(var i=1;i<=lines;i++){
-                $numbering.append($('<li/>').text(i));
-            }
-        });
-        
-
-        /*访问数量*/
-        
-        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
-        
-
-        /*代码高亮，行号对齐*/
-        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
-
-        
-    }
-
-    /*打赏页面隐藏与展示*/
-    
-    function dashangToggle() {
-        $(".shang_box").fadeToggle();
-        $(".hide_box").fadeToggle();
-    }
-    
-
-</script>
-
-<!--加入行号的高亮代码块样式-->
-
-<style>
-    pre{
-        position: relative;
-        margin-bottom: 24px;
-        border-radius: 10px;
-        border: 1px solid #e2dede;
-        background: #FFF;
-        overflow: hidden;
-    }
-    code.has-numbering{
-        margin-left: 30px;
-    }
-    code.has-numbering.widther{
-        margin-left: 35px;
-    }
-    .pre-numbering{
-        margin: 0px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 20px;
-        padding: 0.5em 3px 0.7em 5px;
-        border-right: 1px solid #C3CCD0;
-        text-align: right;
-        color: #AAA;
-        background-color: #fafafa;
-    }
-    .pre-numbering.widther {
-        width: 35px;
-    }
-</style>
-
-<!--自定义样式设置-->
-<style>
-    
-    
-    .nav {
-        width: 542px;
-    }
-    .nav.fullscreen {
-        margin-left: -542px;
-    }
-    .nav-left {
-        width: 120px;
-    }
-    
-    
-    @media screen and (max-width: 1468px) {
-        .nav {
-            width: 492px;
-        }
-        .nav.fullscreen {
-            margin-left: -492px;
-        }
-        .nav-left {
-            width: 100px;
-        }
-    }
-    
-    
-    @media screen and (max-width: 1024px) {
-        .nav {
-            width: 492px;
-            margin-left: -492px
-        }
-        .nav.fullscreen {
-            margin-left: 0;
-        }
-        .nav .hide-list.fullscreen {
-            left: 492px
-        }
-    }
-    
-    @media screen and (max-width: 426px) {
-        .nav {
-            width: 100%;
-        }
-        .nav-left {
-            width: 100%;
-        }
-    }
-    
-    
-    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
-        color: #383636;
-    }
-    
-    
-    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
-        color: #5e5e5f;
-    }
-    
-    
-    .nav-right nav a.hover, #local-search-result a.hover{
-        background-color: #e2e0e0;
-    }
-    
-    
-
-    /*列表样式*/
-    
-    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
-        border: #e2dede solid 1px;
-        border-radius: 10px;
-        padding: 10px 32px 10px 56px;
-    }
-    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
-        margin-bottom: auto;
-        margin-left: auto;
-    }
-    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
-        margin-bottom: auto;
-        margin-left: auto;
-    }
-    
-
-    /* 背景图样式 */
-    
-    
-
-
-    /*引用块样式*/
-    
-
-    /*文章列表背景图*/
-    
-    .nav-right:before {
-        content: ' ';
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.3;
-        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
-        background-repeat: no-repeat;
-        background-position: 50% 0;
-        -ms-background-size: cover;
-        -o-background-size: cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        background-size: cover;
-    }
-    
-
-    
-</style>
-
-
-
-
-
-
-
 </html>
