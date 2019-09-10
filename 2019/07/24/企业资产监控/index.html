@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="thinks 专注学习">
 <meta property="og:description" content="监控企业外部域名、端口">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-30T10:14:42.191Z">
+<meta property="og:updated_time" content="2019-09-10T09:47:24.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="企业资产监控">
 <meta name="twitter:description" content="监控企业外部域名、端口">
@@ -155,7 +155,7 @@
 
 <p>&#x5C06;&#x6574;&#x7406;&#x540E;&#x7684;&#x7F51;&#x6BB5; &#x751F;&#x6210; ip &#x5217;&#x8868; ip.txt</p>
 <p>&#x7528;nmap ping &#x626B;&#x63CF;&#x5B58;&#x6D3B;&#x4E3B;&#x673A;&#x5E76;&#x5BFC;&#x51FA; ip_alive.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># &#x4E3B;&#x673A;&#x53D1;&#x73B0;&#xFF0C;&#x751F;&#x6210;&#x5B58;&#x6D3B;&#x4E3B;&#x673A;&#x5217;&#x8868;</span><br><span class="line">$ nmap -sn -T4 -oG Discovery.gnmap 192.168.56.0/24</span><br><span class="line">$ grep &quot;Status: Up&quot; Discovery.gnmap | cut -f 2 -d &apos; &apos; &gt; LiveHosts.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># &#x4E3B;&#x673A;&#x53D1;&#x73B0;&#xFF0C;&#x751F;&#x6210;&#x5B58;&#x6D3B;&#x4E3B;&#x673A;&#x5217;&#x8868;</span><br><span class="line">$ nmap -sn -T4 -oG Discovery.gnmap -iL IP.txt </span><br><span class="line">$ grep &quot;Status: Up&quot; Discovery.gnmap | cut -f 2 -d &apos; &apos; &gt; ip_alive.txt</span><br></pre></td></tr></table></figure>
 
 <p>&#x597D;&#x4E86;&#xFF0C;&#x5B58;&#x6D3B;&#x7684;ip&#x5DF2;&#x7ECF;&#x5904;&#x7406;&#x5B8C;&#x6210;&#xFF0C;&#x4F46;&#x662F;&#x8FD8;&#x6709;&#x4EE5;&#x4E0B;&#x95EE;&#x9898;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. &#x5F53;&#x626B;&#x63CF;&#x6570;&#x6570;&#x4E07;&#x4E2A;&#x76EE;&#x6807;&#x7684;&#x65F6;&#x5019;&#xFF0C;Nmap&#x7684;&#x901F;&#x5EA6;&#x5F88;&#x6162;&#x3002;</span><br><span class="line">2. Masscan&#x5728;&#x9AD8;&#x901F;(rates)&#x626B;&#x63CF;&#x5927;&#x7AEF;&#x53E3;&#x8303;&#x56F4;&#x65F6;&#x7684;&#x4E0D;&#x51C6;&#x786E;&#x6027;</span><br></pre></td></tr></table></figure>
