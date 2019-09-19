@@ -6,21 +6,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta name="description" content>
-    <title>理解浏览器解析机制和XSS向量编码 | thinks 专注学习</title>
+    <title>环境Tips | thinks 专注学习</title>
 
     <!-- Open Graph -->
-    <meta name="description" content="理解浏览器解析机制和XSS向量编码，才能更好地构造XSS Payload">
-<meta name="keywords" content="web安全">
+    <meta name="description" content="Go&amp;#x73AF;&amp;#x5883;1234567891011121314wget https://studygolang.com/dl/golang/go1.11.linux-amd64.tar.gztar -zxvf go1.11.linux-amd64.tar.gz -C /usr/libvi /etc/profile &amp;#x5728;&amp;#x6700;&amp;#x540E;&amp;#x9762;&amp;#x6">
+<meta name="keywords" content="安全开发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解浏览器解析机制和XSS向量编码">
-<meta property="og:url" content="http://yoursite.com/2019/08/14/理解浏览器解析机制和XSS向量编码/index.html">
+<meta property="og:title" content="环境Tips">
+<meta property="og:url" content="http://yoursite.com/2019/09/19/环境Tips/index.html">
 <meta property="og:site_name" content="thinks 专注学习">
-<meta property="og:description" content="理解浏览器解析机制和XSS向量编码，才能更好地构造XSS Payload">
+<meta property="og:description" content="Go&amp;#x73AF;&amp;#x5883;1234567891011121314wget https://studygolang.com/dl/golang/go1.11.linux-amd64.tar.gztar -zxvf go1.11.linux-amd64.tar.gz -C /usr/libvi /etc/profile &amp;#x5728;&amp;#x6700;&amp;#x540E;&amp;#x9762;&amp;#x6">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-05T07:55:10.375Z">
+<meta property="og:updated_time" content="2019-09-19T07:30:06.913Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解浏览器解析机制和XSS向量编码">
-<meta name="twitter:description" content="理解浏览器解析机制和XSS向量编码，才能更好地构造XSS Payload">
+<meta name="twitter:title" content="环境Tips">
+<meta name="twitter:description" content="Go&amp;#x73AF;&amp;#x5883;1234567891011121314wget https://studygolang.com/dl/golang/go1.11.linux-amd64.tar.gztar -zxvf go1.11.linux-amd64.tar.gz -C /usr/libvi /etc/profile &amp;#x5728;&amp;#x6700;&amp;#x540E;&amp;#x9762;&amp;#x6">
 
     <script type="application/ld+json">
 {
@@ -120,7 +120,7 @@
             <!--<div class="ui one column grid">-->
                 <!--<div class="column">-->
                     <!--<div class="ui main container">-->
-                        <div id="post-理解浏览器解析机制和XSS向量编码" class="ui main container article-type-post">
+                        <div id="post-环境Tips" class="ui main container article-type-post">
 
     
 
@@ -133,7 +133,7 @@
 
 <h1 class="ui header">
     
-    理解浏览器解析机制和XSS向量编码
+    环境Tips
 </h1>
 
 
@@ -142,18 +142,9 @@
 
                     <div class="article-entry" itemprop="articleBody">
                         
-                        <p>&#x7406;&#x89E3;&#x6D4F;&#x89C8;&#x5668;&#x89E3;&#x6790;&#x673A;&#x5236;&#x548C;XSS&#x5411;&#x91CF;&#x7F16;&#x7801;&#xFF0C;&#x624D;&#x80FD;&#x66F4;&#x597D;&#x5730;&#x6784;&#x9020;XSS Payload</p>
-<a id="more"></a>
+                        <h2 id="Go&#x73AF;&#x5883;"><a href="#Go&#x73AF;&#x5883;" class="headerlink" title="Go&#x73AF;&#x5883;"></a>Go&#x73AF;&#x5883;</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wget https://studygolang.com/dl/golang/go1.11.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zxvf go1.11.linux-amd64.tar.gz -C /usr/lib</span><br><span class="line"></span><br><span class="line">vi /etc/profile &#x5728;&#x6700;&#x540E;&#x9762;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x914D;&#x7F6E;</span><br><span class="line">	export GOPATH=/opt/gopath</span><br><span class="line">	export GOROOT=/usr/lib/go</span><br><span class="line">	export GOOS=linux</span><br><span class="line">	export GOTOOLS=$GOROOT/pkg/tool</span><br><span class="line">	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin</span><br><span class="line"></span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">go version</span><br></pre></td></tr></table></figure>
 
-<p>&#x6D45;&#x8C08;XSS&#x2014;&#x5B57;&#x7B26;&#x7F16;&#x7801;&#x548C;&#x6D4F;&#x89C8;&#x5668;&#x89E3;&#x6790;&#x539F;&#x7406;<br><a href="https://security.yirendai.com/news/share/26" target="_blank" rel="noopener">https://security.yirendai.com/news/share/26</a><br><a href="https://www.cnblogs.com/iceli/p/8598709.html" target="_blank" rel="noopener">https://www.cnblogs.com/iceli/p/8598709.html</a></p>
-<p>&#x8981;&#x4E86;&#x89E3;&#x89E3;&#x6790;&#x8FC7;&#x7A0B;&#xFF0C;&#x624D;&#x80FD;&#x6784;&#x9020;&#x53EF;&#x7528;&#x7684;payload</p>
-<p>&#x4F8B;&#x5B50;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a onclick=&quot;window.open(&apos;value1&apos;)&quot; href=&quot;javascript:window.open(&apos;value2&apos;)&quot;&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-
-<p>// &#x6709;href&#x5C5E;&#x6027;&#x4F1A;&#x5148;url&#x89E3;&#x7801;<br>&#x6D4F;&#x89C8;&#x5668;&#x89E3;&#x7801;&#x987A;&#x5E8F;&#xFF1A;</p>
-<pre><code>Value1&#xFF1A;HTML&#x89E3;&#x7801; -&gt; JavaScript&#x89E3;&#x7801; -&gt; URL&#x89E3;&#x7801;
-
-Value2&#xFF1A;HTML&#x89E3;&#x7801; -&gt; URL&#x89E3;&#x7801; -&gt; JavaScript&#x89E3;&#x7801; -&gt; URL&#x89E3;&#x7801;</code></pre><p>XSS Payload:<br><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection#xss-in-wrappers-javascript-and-data-uri" target="_blank" rel="noopener">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection#xss-in-wrappers-javascript-and-data-uri</a></p>
+<p>&#x89E3;&#x51B3;golang&#x4E0B;&#x8F7D;&#x5931;&#x8D25;&#x7684;&#x95EE;&#x9898; <a href="https://studygolang.com/articles/18459" target="_blank" rel="noopener">https://studygolang.com/articles/18459</a></p>
 
                         
                     </div>
@@ -164,7 +155,7 @@ Value2&#xFF1A;HTML&#x89E3;&#x7801; -&gt; URL&#x89E3;&#x7801; -&gt; JavaScript&#x
 
                     <div class="description post-description">
     <span class="post-description-item">
-        <time datetime="2019-08-14T08:32:49.000Z" itemprop="datePublished">2019-08-14</time>
+        <time datetime="2019-09-19T07:23:02.000Z" itemprop="datePublished">2019-09-19</time>
 
     </span>
     <span class="post-description-item">
@@ -176,7 +167,7 @@ Value2&#xFF1A;HTML&#x89E3;&#x7801; -&gt; URL&#x89E3;&#x7801; -&gt; JavaScript&#x
 
     
     <span class="ui tiny label">
-        <a href="/tags/web安全/">web安全</a>
+        <a href="/tags/安全开发/">安全开发</a>
     </span>
 
     
@@ -193,23 +184,16 @@ Value2&#xFF1A;HTML&#x89E3;&#x7801; -&gt; URL&#x89E3;&#x7801; -&gt; JavaScript&#x
             <div class="column nav-left">
                 
 
-                <a href="/2019/08/14/XSS的高级攻击用法/" class="ui tiny button">
-
-                    <i class="angle left icon"></i>
-                    
-                    XSS的高级攻击用法
-                    
-
-                </a>
+                <a class="ui tiny button disabled"><i class="angle left icon"></i>Previous</a>
 
                 
             </div>
             <div class="column nav-right">
                 
 
-                <a href="/2019/08/05/Android-逆向笔记/" class="ui tiny button">
+                <a href="/2019/09/04/渗透工具集/" class="ui tiny button">
                     
-                    Android 逆向笔记
+                    渗透工具集
                     
                     <i class="angle right icon"></i></a>
                 
@@ -226,7 +210,7 @@ Value2&#xFF1A;HTML&#x89E3;&#x7801; -&gt; URL&#x89E3;&#x7801; -&gt; JavaScript&#x
 
                 <div class="ui sticky article-toc" id="article-toc">
                     <!-- toc -->
-                    
+                    <ol class="ui ordered list"><li><a href="#Go环境"><span>Go环境</span></a></li></ol>
                 </div>
 
             </div>
